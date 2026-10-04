@@ -64,12 +64,12 @@ def populate(slide, photo, row):
         ['Aspek','Organic search','Paid traffic'],[
         ['Sumber','Unpaid search results','Penempatan iklan'],['Investasi','SEO, content, review, maintenance','Ad spend, creative, campaign management'],['Peran','Membangun discovery secara bertahap','Menguji demand dan menjangkau audience'],['Faktor hasil','Relevansi, kualitas, competition','Budget, targeting, creative, landing page']],
         'Organic bukan gratis · Kedua channel membutuhkan conversion path dan tidak menjamin sales')
-    comparison('Contoh organic traffic non-brand: Wingoh','Query dengan clicks terbanyak pada ekspor GSC Juli 2026 setelah mengecualikan nama Wingoh/Albindo.',
-        ['Keyword non-brand','Organic clicks / impressions','Pelajaran untuk Mecosin'],[
-        ['thinwall','10 clicks · 14.891 impressions','Audience mencari jenis produk, bukan nama perusahaan. Content kategori dapat membuka discovery baru.'],
-        ['pabrik cup plastik','9 clicks · 158 impressions','Intent mencari supplier lebih spesifik. Padankan query dengan halaman layanan yang relevan.'],
-        ['sendok plastik','7 clicks · 6.138 impressions','Exposure besar belum tentu menghasilkan banyak clicks; relevansi dan snippet perlu dievaluasi.']],
-        'GSC Wingoh · Ekspor Juli 2026, historis · Clicks ≠ sessions/leads · Impressions ≠ kunjungan · Terbesar dalam query ekspor, bukan sepanjang waktu')
+    comparison('Contoh organic traffic non-brand: Wingoh','Contoh pencarian jenis produk dan supplier yang membawa audience ke Wingoh tanpa mencari nama brand.',
+        ['Keyword non-brand','Impressions / CTR','Relevansi untuk Mecosin'],[
+        ['thinwall','14.891 impressions · CTR 0,07%','Audience mencari jenis produk, bukan nama perusahaan. Content kategori dapat membuka discovery baru.'],
+        ['pabrik cup plastik','158 impressions · CTR 5,70%','Intent mencari supplier lebih spesifik. Padankan query dengan halaman layanan yang relevan.'],
+        ['sendok plastik','6.138 impressions · CTR 0,11%','Exposure besar belum tentu menghasilkan banyak clicks; relevansi dan snippet perlu dievaluasi.']],
+        'Contoh data Google Search Console · Impressions = tampil di hasil pencarian · CTR = persentase impressions menjadi klik, bukan conversion penjualan')
     page('Content dan technical SEO yang dikerjakan','Setiap halaman perlu tujuan, struktur yang jelas, dan next step yang relevan.',[
         ('Content','Gunakan title, heading, dan jawaban yang sesuai kebutuhan pencarian.'),('Technical foundation','Rapikan internal links, sitemap, canonical, dan mobile usability.'),('Customer journey','Hubungkan edukasi ke product information atau enquiry yang relevan.')],['Useful content','Internal links','Indexability','Mobile usability'])
     page('Cara membangun authority dan trust','Authority dibangun lewat kualitas informasi dan reputasi, bukan sekadar skor tool SEO.',[
