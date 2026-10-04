@@ -27,7 +27,7 @@ def slide(label, title, lead, body, *, cls='', note='Usulan pengembangan · Linc
     i = len(slides) + 1
     slides.append(f'<section class="slide {cls}" id="slide-{i}" aria-label="Slide {i}: {label}"><header>{logos}<span class="chapter">{label}</span></header><div class="content"><h2>{title}</h2><p class="lead">{lead}</p>{body}</div><footer><span>{note}</span><span>{i:02d}</span></footer></section>')
 
-from content_en import populate
+from content_id import populate
 populate(slide, photo, row)
 
 css = '''
@@ -86,9 +86,46 @@ ui = {
     'Calon pelanggan atau mitra yang menunjukkan minat.':'A prospective customer or partner expressing interest.',
     'Data yang dikumpulkan perusahaan langsung dari pelanggan dengan dasar penggunaan yang sah.':'Data collected directly from customers with a lawful basis for use.',
 }
-for source, target in sorted(ui.items(), key=lambda item: -len(item[0])):
-    html = html.replace(source, target)
+html = html.replace('← → poin &nbsp; · &nbsp; Shift + ← → slide', '← → slide &nbsp; · &nbsp; Space berikutnya')
+html = html.replace('Poin sebelumnya', 'Slide sebelumnya').replace('Poin berikutnya', 'Slide berikutnya')
+html = html.replace('</style>', '''
+.id-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:24px;line-height:1.4}
+.id-table th,.id-table td{padding:21px 24px;text-align:left;vertical-align:top;overflow-wrap:anywhere;border-bottom:2px solid white}
+.id-table th{background:#17613f;color:white;font-size:23px}.id-table td{background:#eff7e9}.id-table tr:nth-child(even) td{background:#edf5fa}
+.comparison-art{margin-top:32px;padding:0}.comparison-art:has(tr:nth-child(5)) .id-table{font-size:22px}
+.slide h2{font-size:55px}.chapter{max-width:680px;text-align:right;font-size:12px}
+.photo-art img[alt="Aset website Mecosin"]{object-fit:contain}
+</style>''')
 html = html.replace('@media print{@page', '@media print{*,*::before,*::after{animation:none!important;transition:none!important}@page')
+html = html.replace('</style>', '''
+.message-layout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px;margin-top:62px}
+.message-point{min-width:0;border-top:2px solid #17613f;padding-top:23px;position:relative}
+.message-number{display:block;font-size:17px;color:#087fba;margin-bottom:30px}
+.message-point h3{font-size:32px;line-height:1.2;letter-spacing:-.025em;margin-bottom:22px}
+.message-point p{font-size:25px;line-height:1.5;color:#56645b}
+.message-layout.opening{grid-template-columns:1fr 1fr;gap:110px;margin-top:90px}.opening .message-point h3{font-size:43px}
+.message-layout.portfolio{gap:30px}.portfolio .message-point{padding:30px;background:#eff7e9;border-top:4px solid #17613f;min-height:340px}.portfolio .message-point:nth-child(2){background:#edf5fa;border-color:#087fba}
+.process .message-number{background:#17613f;color:white;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin-top:-51px;margin-bottom:30px}.message-layout.process{margin-top:100px}.process .message-point{padding-top:24px}.process .message-point:not(:last-child)::after{content:'→';position:absolute;right:-38px;top:-23px;color:#087fba;font-size:32px;background:white}
+.message-layout.journeys{grid-template-columns:1fr 1fr;gap:30px 60px}.journeys .message-point:last-child{grid-column:1/-1;display:grid;grid-template-columns:50px 320px 1fr;align-items:start;gap:20px;padding-top:20px}.journeys .message-point:last-child h3{font-size:26px}.journeys .message-point:last-child p{font-size:23px}.journeys .message-point:last-child .message-number{margin:0}
+.boundaries .message-point:nth-child(2){border-color:#a75b3b}.boundaries .message-point:nth-child(2) h3{color:#914629}
+.message-layout.ledger{grid-template-columns:1fr;gap:22px;margin-top:44px}.ledger .message-point{display:grid;grid-template-columns:65px 420px 1fr;gap:25px;padding-top:20px}.ledger .message-number,.ledger .message-point h3{margin:0}.ledger .message-point p{font-size:26px}
+.sitemap-root{background:#17613f;color:white;border-radius:8px;padding:18px 30px;width:420px;margin:32px auto 0;text-align:center;font-size:28px}.message-layout.sitemap{margin-top:35px;gap:30px}.sitemap .message-point{background:#eff7e9;padding:25px;border-top:3px solid #17613f}.sitemap .message-number{display:none}.sitemap .message-point h3{font-size:28px}.sitemap .message-point p{font-size:24px}.sitemap .message-point::before{content:'';position:absolute;top:-36px;left:50%;height:33px;border-left:2px solid #a8bcae}
+.slide.active .message-point{animation:rise .65s .25s both}.slide.active .message-point:nth-child(2){animation-delay:.4s}.slide.active .message-point:nth-child(3){animation-delay:.55s}
+@media(prefers-reduced-motion:reduce){.slide.active .message-point{animation:none!important}}
+</style>''')
 output = ROOT / 'linc-x-mecosin.html'
+html = html.replace('</style>', '''
+.message-layout.sitemap{position:relative}.message-layout.sitemap::before{content:'';position:absolute;top:-20px;left:calc((100% - 60px)/6 - 2px);right:calc((100% - 60px)/6 - 2px);border-top:2px solid #a8bcae}.sitemap-root{position:relative}.sitemap-root::after{content:'';position:absolute;left:50%;top:100%;height:17px;border-left:2px solid #a8bcae}.sitemap .message-point::before{top:-22px;height:22px}
+.closing-cta{margin-top:65px}.closing-cta a{font-size:110px;font-weight:600;letter-spacing:-.055em;color:#17613f;text-decoration:none;border-bottom:4px solid #087fba}.closing-cta a span{font-size:70px;color:#087fba}.closing-cta p{font-size:28px;color:#56645b;margin-top:45px}
+.id-table{font-size:22px}.id-table th,.id-table td{padding:16px 21px}.comparison-art:has(tr:nth-child(5)) .id-table{font-size:20px}
+</style>''')
+from art_direction import CSS as ART_CSS
+html = html.replace('</style>', ART_CSS + '</style>')
+html = html.replace('</style>', '''
+/* Keep header clear; dense tables recover space inside rows, not in type size. */
+.slide .content{padding-top:76px}
+.closing-cta{margin-top:36px}.closing-contacts{display:flex;gap:90px;margin-top:28px}.closing-contacts>div{display:flex;flex-direction:column;gap:8px}.closing-contacts span{font-size:20px;color:#56645b}.closing-contacts a{font-size:32px;letter-spacing:0;border-bottom:0;min-height:44px}.closing-cta p{margin-top:24px}
+#slide-18 .id-table td,#slide-19 .id-table td{padding-top:10px;padding-bottom:10px}
+</style>''')
 output.write_text(html)
 print(f'Built {len(slides)} slides: {output} ({output.stat().st_size:,} bytes)')
