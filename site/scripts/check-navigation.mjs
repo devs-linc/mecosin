@@ -9,6 +9,7 @@ try {
   await p.goto(base);await p.waitForFunction(()=>document.querySelector('#hero-video').currentTime>0);
   assert.equal(await p.locator('.hero button').count(),0);
   assert.equal(await p.locator('#video-toggle').innerText(),'');
+  assert.deepEqual(await p.locator('#language').evaluate(e=>{const s=getComputedStyle(e);return [s.backgroundRepeat,s.backgroundSize]}),['no-repeat','16px auto']);
   if(width<=760)await p.locator('.menu-toggle').click();
   await p.locator('.company-nav summary').click();
   assert.deepEqual(await p.locator('.company-menu a').evaluateAll(es=>es.map(e=>e.getAttribute('href'))),['/about/','/products/','/services/','/team/','/partners/']);
@@ -25,7 +26,7 @@ try {
   }
   await p.locator('iframe').evaluate(e=>e.scrollIntoView({behavior:'instant',block:'center'}));
   const frame=p.frameLocator('iframe');await frame.locator('.slide.active').waitFor();
-  assert.equal(await frame.locator('.slide').count(),21);
+  assert.equal(await frame.locator('.slide').count(),24);
   await frame.locator('#next').click();assert.equal(await frame.locator('#slide-2').getAttribute('aria-hidden'),'false');
   await c.close();console.log(`PASS menu, language, pages, presentation at ${width}px`);
  }
