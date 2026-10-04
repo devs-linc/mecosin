@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Laserin Madu Strawberry",
+    "slug": "laserin-madu-strawberry",
+    "brand": "Laserin",
+    "excerpt": "Laserin Madu Rasa Stroberi membantu meredakan batuk dan melegakan tenggorokan, membantu meredakan gejala masuk angin seperti mual dan muntah.",
+    "image": "/images/laserin-madu-strawberry.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Laserin-Madu-Strawberry"
+  },
+  {
+    "name": "MecoVit C-500 mg",
+    "slug": "mecovit-c-500-mg",
+    "brand": "MecoVit",
+    "excerpt": "Mecovit C membantu menjaga daya tahan tubuh.",
+    "image": "/images/mecovit-c-500-mg.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-C-500-mg"
+  },
+  {
+    "name": "MecoVit Immune Bocah Sehat",
+    "slug": "mecovit-immune-bocah-sehat",
+    "brand": "MecoVit",
+    "excerpt": "Mecovit Immune Bocah Sehat membantu memelihara daya tahan tubuh.",
+    "image": "/images/mecovit-immune-bocah-sehat.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-Immune-Bocah-Sehat"
+  },
+  {
+    "name": "MecoVit Gain",
+    "slug": "mecovit-gain",
+    "brand": "MecoVit",
+    "excerpt": "MecoVit Gain membantu memenuhi kebutuhan vitamin dan memelihara kesehatan anak dalam masa pertumbuhan dan membantu memperbaiki nafsu makan.",
+    "image": "/images/mecovit-gain.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-Gain"
+  },
+  {
+    "name": "MecoVit Grow",
+    "slug": "mecovit-grow",
+    "brand": "MecoVit",
+    "excerpt": "MecoVit Grow membantu memelihara kesehatan tulang dan gigi anak pada masa pertumbuhan.",
+    "image": "/images/mecovit-grow.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-Grow"
+  },
+  {
+    "name": "MecoVit C Plus Zinc",
+    "slug": "mecovit-c-plus-zinc",
+    "brand": "MecoVit",
+    "excerpt": "MecoVit C Plus Zinc  membantu memelihara daya tahan tubuh, membantu memenuhi kebutuhan vitamin C dan Zinc.",
+    "image": "/images/mecovit-c-plus-zinc.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-C-Plus-Zinc"
+  },
+  {
+    "name": "Beauty 360 Body Serum",
+    "slug": "beauty-360-body-serum",
+    "brand": "Beauty 360",
+    "excerpt": "Beauty 360 Rasakan keharuman lembut body serum eksklutif Beauty 360 yang menyegarkan sepanjang hari, memberikan kecerahan dan kelembutan pada kulit. ...",
+    "image": "/images/beauty-360-body-serum.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Beauty-360-Body-Serum"
+  },
+  {
+    "name": "Beauty 360 Shower Gel",
+    "slug": "beauty-360-shower-gel",
+    "brand": "Beauty 360",
+    "excerpt": "Beauty 360 Body Wash mengandung Niacinamide, Glutathione, dan CPC (Cetylpyridinium Chloride) untuk melawan bakteri, menjaga kulit tetap bersih, lembut dan ...",
+    "image": "/images/beauty-360-shower-gel.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Beauty-360-Shower-Gel"
+  },
+  {
+    "name": "Mecowell Normoten",
+    "slug": "mecowell-normoten",
+    "brand": "Mecowell",
+    "excerpt": "Mecowell Normoten secara tradisional digunakan untuk membantu meringankan gejala tekanan darah tinggi yang ringan.",
+    "image": "/images/mecowell-normoten.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Mecowell-Normoten"
+  },
+  {
+    "name": "Lancar ASI",
+    "slug": "lancar-asi",
+    "brand": "Lancar ASI",
+    "excerpt": "Lancar Asi membantu melancarkan air susu ibu.",
+    "image": "/images/lancar-asi.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Lancar-ASI"
+  },
+  {
+    "name": "Lancar ASI Plus DHA",
+    "slug": "lancar-asi-plus-dha",
+    "brand": "Lancar ASI",
+    "excerpt": "Lancar Asi Plus DHA sebagai suplemen kesehatan untuk membantu melancarkan Air Susu Ibu (ASI).",
+    "image": "/images/lancar-asi-plus-dha.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Lancar-ASI-Plus-DHA"
+  },
+  {
+    "name": "Laserin Madu Orange",
+    "slug": "laserin-madu-orange",
+    "brand": "Laserin",
+    "excerpt": "Laserin Madu Rasa Jeruk membantu meredakan batuk dan melegakan tenggorokan, membantu meredakan gejala masuk angin seperti mual dan muntah.",
+    "image": "/images/laserin-madu-orange.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Laserin-Madu-Orange"
+  },
+  {
+    "name": "Laserin Dewasa",
+    "slug": "laserin-dewasa",
+    "brand": "Laserin",
+    "excerpt": "Laserin membantu meredakan batuk, melegakan tenggorokan, masuk angin, muntah, dan sakit perut.",
+    "image": "/images/laserin-dewasa.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Laserin-Dewasa"
+  },
+  {
+    "name": "Laserin Madu Original",
+    "slug": "laserin-madu-original",
+    "brand": "Laserin",
+    "excerpt": "Laserin Madu membantu meredakan batuk dan melegakan tenggorokan, membantu meredakan gejala masuk angin seperti mual dan muntah.",
+    "image": "/images/laserin-madu-original.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Laserin-Madu-Original"
+  },
+  {
+    "name": "MecoVit-D3 1000 IU",
+    "slug": "mecovit-d3-1000-iu",
+    "brand": "MecoVit",
+    "excerpt": "MecoVit D3 1000 IU memenuhi kebutuhan vitamin D dengan cepat pada kondisi tertentu seperti lanjut usia, ibu hamil dan menyusui, ...",
+    "image": "/images/mecovit-d3-1000-iu.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-D3-1000-IU"
+  },
+  {
+    "name": "MecoVit Calci",
+    "slug": "mecovit-calci",
+    "brand": "MecoVit",
+    "excerpt": "MecoVit Calci membantu memelihara kesehatan tulang dan Gigi",
+    "image": "/images/mecovit-calci.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-Calci"
+  },
+  {
+    "name": "MecoVit GO",
+    "slug": "mecovit-go",
+    "brand": "MecoVit",
+    "excerpt": "MecoVit GO merupakan suplementasi Multivitamin dan Zinc untuk membantu memelihara daya tahan tubuh. Nomor Izin Edar : POM ...",
+    "image": "/images/mecovit-go.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/MecoVit-GO"
+  },
+  {
+    "name": "Laserin Sachet",
+    "slug": "laserin-sachet",
+    "brand": "Laserin",
+    "excerpt": "Laserin Sachet membantu meredakan batuk & melegakan tenggorokan.",
+    "image": "/images/laserin-sachet.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Laserin-Sachet"
+  },
+  {
+    "name": "Laserin untuk Masuk Angin (LUMA)",
+    "slug": "laserin-untuk-masuk-angin-luma",
+    "brand": "Laserin",
+    "excerpt": "Laserin untuk Masuk Angin (LUMA) membantu memelihara daya tahan tubuh, membantu meredakan masuk angin dengan gejala kembung, mual, meriang, dan ...",
+    "image": "/images/laserin-untuk-masuk-angin-luma.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Laserin-untuk-Masuk-Angin-(LUMA)"
+  },
+  {
+    "name": "Herbatusauda",
+    "slug": "herbatusauda",
+    "brand": "Herbatusauda",
+    "excerpt": "Herbatusauda membantu memelihara daya tahan tubuh.",
+    "image": "/images/herbatusauda.webp",
+    "source": "https://mecosin.id/products",
+    "originalDetail": "https://mecosin.id/product/Herbatusauda"
+  }
+]

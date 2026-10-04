@@ -1,0 +1,8 @@
+---
+import T from './T.astro';
+const { product } = Astro.props;
+---
+<article class="product" data-product data-brand={product.brand} data-name={`${product.name} ${product.excerpt}`.toLowerCase()} data-need={/daya tahan/i.test(product.excerpt) ? 'immune' : /tulang|Gigi/i.test(product.excerpt) ? 'bone' : /kulit|body/i.test(product.excerpt) ? 'body' : /batuk|tenggorokan/i.test(product.excerpt) ? 'throat' : 'other'}>
+  <a href={`/produk/${product.slug}/`}><div class="product-image"><img src={product.image} alt={product.name} width="640" height="640" loading="lazy" /></div><div class="product-label"><span class="product-brand">{product.brand}</span><h3>{product.name}</h3><span class="product-open"><T id="Lihat informasi ↗" en="View information ↗" /></span></div></a>
+  <div class="card-buy"><strong>Rp25.000</strong><button class="outline-button" data-add={product.slug} disabled><T id="+ Keranjang" en="+ Add to cart" /></button></div>
+</article>

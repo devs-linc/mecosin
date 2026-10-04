@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { cleanCart, totals, price } from '../src/scripts/cart.mjs';
+assert.deepEqual(cleanCart('{broken'), []);
+assert.deepEqual(cleanCart('{"items":[]}'), []);
+assert.deepEqual(cleanCart(JSON.stringify([{id:'bogus',qty:2},{id:'laserin-dewasa',qty:-2},{id:'mecovit-calci',qty:1.5}])), []);
+assert.deepEqual(cleanCart(JSON.stringify([{id:'laserin-dewasa',qty:2,price:1},{id:'laserin-dewasa',qty:3},{id:'mecovit-calci',qty:1000}])), [{id:'laserin-dewasa',qty:5},{id:'mecovit-calci',qty:99}]);
+assert.equal(price('laserin-dewasa'),25000);
+assert.equal(price('__proto__'),0);
+assert.deepEqual(totals([{id:'laserin-dewasa',qty:2}]), {subtotal:50000,discount:0,shipping:10000,tax:0,total:60000,count:2});
+assert.deepEqual(totals([{id:'laserin-dewasa',qty:2}],true), {subtotal:50000,discount:5000,shipping:10000,tax:0,total:55000,count:2});
+assert.deepEqual(totals([],true), {subtotal:0,discount:0,shipping:0,tax:0,total:0,count:0});
+assert.equal(totals([{id:'bogus',qty:3},{id:'laserin-dewasa',qty:Infinity}]).total,0);
+console.log('PASS cart trust boundary, duplicate merging, quantity limits, fixed demo pricing, empty/shipping/tax/discount totals');

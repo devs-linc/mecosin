@@ -1,0 +1,18 @@
+---
+import products from '../data/products.json';
+import ProductCard from './ProductCard.astro';
+import T from './T.astro';
+const brands = ['Laserin','MecoVit','Lancar ASI','Mecowell','Herbatusauda','Beauty 360'];
+---
+<section id="katalog" class="catalog section-wrap">
+<div class="catalog-tools" hidden>
+<label class="search-label"><T id="Cari nama atau deskripsi" en="Search names or descriptions" /><input id="product-search" type="search" maxlength="120" autocomplete="off" /></label>
+<label class="search-label"><T id="Merek" en="Brand" /><select id="brand-filter"><option value="" data-id="Semua merek" data-en="All brands">Semua merek</option>{brands.map(b=><option>{b}</option>)}</select></label>
+<label class="search-label"><T id="Jelajahi kebutuhan informasi" en="Browse information needs" /><select id="need-filter"><option value="" data-id="Semua topik" data-en="All topics">Semua topik</option><option value="immune" data-id="Daya tahan tubuh" data-en="Immune support">Daya tahan tubuh</option><option value="bone" data-id="Tulang & gigi" data-en="Bones & teeth">Tulang &amp; gigi</option><option value="body" data-id="Perawatan tubuh" data-en="Body care">Perawatan tubuh</option><option value="throat" data-id="Informasi batuk & tenggorokan" data-en="Cough & throat information">Informasi batuk &amp; tenggorokan</option><option value="other" data-id="Informasi lainnya" data-en="Other information">Informasi lainnya</option></select></label>
+<button class="text-link" id="reset-catalog"><T id="Reset" en="Reset" /></button>
+</div>
+<p class="notice"><T id="Topik mengikuti deskripsi katalog, bukan penilaian gejala atau rekomendasi untuk kondisi Anda. Semua harga simulasi, bukan harga resmi. Stok belum terhubung." en="Topics reflect catalog descriptions, not symptom assessment or recommendations for your condition. All prices are simulated, not official. Stock is not connected." /></p>
+<div class="catalog-status"><h2><T id="Koleksi Mecosin" en="Mecosin collection" /></h2><p id="result-count" role="status">20 produk / products</p></div>
+<div class="product-grid">{products.map(product=><ProductCard product={product} />)}</div>
+<p class="empty-state" hidden><T id="Tidak ada hasil. Coba kata lain atau reset filter." en="No results. Try another term or reset the filters." /></p>
+</section>

@@ -1,0 +1,17 @@
+{
+  "name": "mecosin-local-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1 --port 4341",
+    "check": "node scripts/check-cart.mjs && node scripts/check-drawer.mjs && node scripts/check-navigation.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.5"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}

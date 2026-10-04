@@ -1,0 +1,9 @@
+/* Source observed small upward text settlement. Entrances use WAAPI in site.ts.
+   Botanical footage seeking is Mecosin adaptation, not claimed Indena behavior. */
+@media(prefers-reduced-motion:no-preference){
+.motion-ready .botanical-plane{transform:scale(calc(1 + var(--sc-p,0) * .045));transform-origin:30% 50%}
+.motion-ready .hero-caption{transform:translateY(calc(var(--sc-p,0) * -20px))}
+.motion-ready .vitamin-packs img:first-child{transform:translateX(calc((.5 - var(--sc-p,.5)) * -22px)) rotate(-3deg)}
+.motion-ready .vitamin-packs img:last-child{transform:translateX(calc((.5 - var(--sc-p,.5)) * 22px)) rotate(3deg)}
+}
+@media(prefers-reduced-motion:reduce){.botanical-plane,.hero-caption,.vitamin-packs img{transform:none!important}}

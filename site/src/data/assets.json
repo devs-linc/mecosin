@@ -1,0 +1,194 @@
+[
+  {
+    "output": "public/images/laserin-madu-strawberry.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d95abcad68.png",
+    "source_sha256": "984ab527e2fb19f2fff5db186f614f7b9fd0d55f40a968ce4033ef87f6c68bd9",
+    "width": 640,
+    "height": 238,
+    "bytes": 51340
+  },
+  {
+    "output": "public/images/mecovit-c-500-mg.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d9e17e9e13.png",
+    "source_sha256": "22b7af182e88608cc1841e77535614947af043cddc3486f049125ec5721ce2c0",
+    "width": 640,
+    "height": 250,
+    "bytes": 30666
+  },
+  {
+    "output": "public/images/mecovit-immune-bocah-sehat.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d6fbf97a2d.png",
+    "source_sha256": "ea096076495237f7c9019d80193a058002152c868c2f8810f3e6c36b4d56deda",
+    "width": 640,
+    "height": 588,
+    "bytes": 74138
+  },
+  {
+    "output": "public/images/mecovit-gain.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d6fce8e232.png",
+    "source_sha256": "619a4aa7fbc94d84bf69aa182027874c861d196d4cc1da71596cdef6f6f63dd1",
+    "width": 640,
+    "height": 593,
+    "bytes": 71120
+  },
+  {
+    "output": "public/images/mecovit-grow.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d6fe22338d.png",
+    "source_sha256": "d337902b408522e0568963e7fe755d965d1cadf863da869cdd0181dc9c1a91a2",
+    "width": 640,
+    "height": 596,
+    "bytes": 76116
+  },
+  {
+    "output": "public/images/mecovit-c-plus-zinc.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d9e9d61b27.png",
+    "source_sha256": "8bdcc6a96a46548685bcfb6098a8ba86bac5514573d50d8e5b6b6f7c04e7d476",
+    "width": 640,
+    "height": 261,
+    "bytes": 41930
+  },
+  {
+    "output": "public/images/beauty-360-body-serum.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690da06bded1e.png",
+    "source_sha256": "a2c2d78cec1d1a9f29137452db36c6fb3a56d949f490b29abb0b6f8ed0a03ccc",
+    "width": 490,
+    "height": 640,
+    "bytes": 45578
+  },
+  {
+    "output": "public/images/beauty-360-shower-gel.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690da08187049.png",
+    "source_sha256": "3056459ac6fe8b7cfc5a78eab742d2171ab7fc46385238019843b2f83ea14866",
+    "width": 543,
+    "height": 640,
+    "bytes": 70138
+  },
+  {
+    "output": "public/images/mecowell-normoten.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/66abdc2fd1aa0.png",
+    "source_sha256": "d6622df475c4bd751b417b01e79656338ea88bfc46aa3bb15de63883c070c678",
+    "width": 128,
+    "height": 245,
+    "bytes": 10482
+  },
+  {
+    "output": "public/images/lancar-asi.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/6811fe9263f89.png",
+    "source_sha256": "daaf973b7019cdce54c9bac4c4fa55b4fc6bdbe7c7f514b9ed8fe6ddc90b4325",
+    "width": 402,
+    "height": 640,
+    "bytes": 38318
+  },
+  {
+    "output": "public/images/lancar-asi-plus-dha.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/6811fe7114c78.png",
+    "source_sha256": "e0843dd343ef3864c9fdab9b8fef7bddd27728006bce91abeaafb0070f07900d",
+    "width": 398,
+    "height": 640,
+    "bytes": 41644
+  },
+  {
+    "output": "public/images/laserin-madu-orange.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d96fd18fee.png",
+    "source_sha256": "7ffdceb856dd542ff045ec79c19704d5e7eb497b89a60b924a22e46dfe6b0914",
+    "width": 640,
+    "height": 238,
+    "bytes": 52774
+  },
+  {
+    "output": "public/images/laserin-dewasa.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d70118fe1c.png",
+    "source_sha256": "94805409fc596a9c10db5573802ca2d151c8b08fced5c41ec53f2d1103882a94",
+    "width": 640,
+    "height": 287,
+    "bytes": 47652
+  },
+  {
+    "output": "public/images/laserin-madu-original.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d9d3785e8f.png",
+    "source_sha256": "32bbc422f8115165b336ea4c0b6de63898b2a4c05e85986b93020d120fe44e6c",
+    "width": 640,
+    "height": 238,
+    "bytes": 51262
+  },
+  {
+    "output": "public/images/mecovit-d3-1000-iu.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d9dbf4916e.png",
+    "source_sha256": "1fecf6c2d387d9eff1a645204f5cdf3ebf638ded896eff368ec17fd9c61e65d1",
+    "width": 640,
+    "height": 260,
+    "bytes": 28266
+  },
+  {
+    "output": "public/images/mecovit-calci.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d9ef8cbfff.png",
+    "source_sha256": "609f248798ea111db747df7f6571c1e6bab0e79b13d99d02fcd77663fd165be4",
+    "width": 425,
+    "height": 640,
+    "bytes": 35754
+  },
+  {
+    "output": "public/images/mecovit-go.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d9ed0b04fb.png",
+    "source_sha256": "b4c0466dd07a5125b066ee112beb2a37e9620fdc60a8fae5b34d11600f6f0ee1",
+    "width": 415,
+    "height": 640,
+    "bytes": 38658
+  },
+  {
+    "output": "public/images/laserin-sachet.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d6f9e1ec0c.png",
+    "source_sha256": "a82920de66b61030b5d5780f6843ae2d85f982a7605947097d77bfa026e6ad73",
+    "width": 598,
+    "height": 640,
+    "bytes": 64608
+  },
+  {
+    "output": "public/images/laserin-untuk-masuk-angin-luma.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d6ff941d0b.png",
+    "source_sha256": "5dc14a94a173c112ff730056ad3d22a01b5feb3620ea9a3a67366ea7f3f75e40",
+    "width": 605,
+    "height": 640,
+    "bytes": 128284
+  },
+  {
+    "output": "public/images/herbatusauda.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/featured/690d9f53de2e7.png",
+    "source_sha256": "42ea8102606006fdd792b2c445677d1ae1d9a734769d4f06b45d999770802ce8",
+    "width": 402,
+    "height": 640,
+    "bytes": 39894
+  },
+  {
+    "output": "public/images/logo.webp",
+    "source_url": "https://mecosin.id/assets/front/img/66f202cb47c0f.png",
+    "source_sha256": "882857dc3162129c1162393bd9c796542bafbb72d12f8ec87c4863672bea8613",
+    "width": 600,
+    "height": 74,
+    "bytes": 9368
+  },
+  {
+    "output": "public/images/botanical.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/footer_img.png",
+    "source_sha256": "345a654bef99cf15d58c49bfe1d632a3adaa91b37411fc37922b2cfb90dfcafa",
+    "width": 1439,
+    "height": 744,
+    "bytes": 62354
+  },
+  {
+    "output": "public/images/ginger.webp",
+    "source_url": "https://mecosin.id/assets/front/img/product/categories/66b10febc85be.png",
+    "source_sha256": "e55ecd94a35285d0906771e93e7643dfb437806412e3e5420fcfa79bc220d290",
+    "width": 281,
+    "height": 188,
+    "bytes": 9676
+  },
+  {
+    "output": "public/images/laboratory.webp",
+    "source_url": "https://mecosin.id/assets/front/img/scientific.png",
+    "source_sha256": "6e3d7e0e4495082cc22dfb1d4dd944cd7ca5c652798d250982dd5b132fb535dc",
+    "width": 1000,
+    "height": 768,
+    "bytes": 54958
+  }
+]
