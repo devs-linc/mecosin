@@ -1,0 +1,12 @@
+---
+import Icon from './ReferenceIcon.astro';
+const { compact = false } = Astro.props;
+---
+<div class="ref-advisor">
+  <div class="ref-advisor-title"><Icon name="leaf"/><span>Ask Mecosin<small>{compact ? 'Product information, made easier.' : 'Your product information guide'}</small></span></div>
+  <button class="ref-question" type="button" data-open-chat aria-haspopup="dialog" aria-controls="mecosin-chat">What would you like to learn?<span><Icon name="arrow"/></span></button>
+  <div class="ref-chips">{['Products','Ingredients','Buying','Partnerships'].map(topic=><button type="button" data-open-chat data-chat-topic={topic} aria-haspopup="dialog" aria-controls="mecosin-chat">{topic}</button>)}</div>
+  <div class="ref-actions"><button class="ref-btn" type="button" data-open-chat aria-haspopup="dialog" aria-controls="mecosin-chat">Start a conversation <Icon name="arrow"/></button><a href="/produk/" class="ref-text-link">Shop all products <Icon name="arrow"/></a></div>
+  <p class="ref-fine">Product information only. For personal health advice, speak to a doctor or pharmacist.</p>
+  <noscript><p class="ref-fine">Enable JavaScript to open chat. <a href="/bantuan/">Read product information</a>.</p></noscript>
+</div>

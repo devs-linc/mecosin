@@ -1,0 +1,44 @@
+---
+import '../styles/reference-home.css';
+import Icon from '../components/ReferenceIcon.astro';
+import HomeMenu from '../components/HomeMenu.astro';
+import MecosinChat from '../components/MecosinChat.astro';
+import CartDrawer from '../components/CartDrawer.astro';
+import '../styles/demo.css';
+import '../styles/shopping.css';
+import '../styles/consumer-refinement.css';
+import '../styles/approved-home.css';
+const { variant, title } = Astro.props;
+
+const menu = variant === 'business' ? [['#capabilities','Capabilities'],['/services/','Manufacturing'],['#quality','Research & quality'],['/products/','Products'],['#knowledge','Herbal knowledge'],['/about/','About']] : [['#concerns','Shop by need'],['#products','Products'],[variant==='consumer'?'#ingredients':'#knowledge','Herbal knowledge'],[variant==='consumer'?'#transparency':'#journey','Research & innovation'],['#business','For partners'],[variant==='consumer'?'/about/':'#history','Our story']];
+---
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><meta name="color-scheme" content="light"/><title>{title} | Mecosin</title><meta name="description" content="Mecosin Indonesia: herbal products, supplements, body care and business partnerships. Since 1961."/><link rel="icon" href="/images/logo.webp"/></head>
+<body class={`reference-site ${variant}`}>
+<a class="ref-skip" href="#main">Skip to content</a>
+{variant !== 'hybrid' && <div class="ref-utility"><div class="ref-wrap"><span>{variant==='business'?'Indonesian herbal expertise · Since 1961':'Mecosin Indonesia · Herbal products & supplements'}</span><div><a href="/presentation/">Presentation</a><a href="/quotation/">Quotation</a><span>EN</span></div></div></div>}
+<header class="ref-header"><div class="ref-header-inner"><a href="/" class="ref-logo" aria-label="Mecosin home"><img src="/images/logo.webp" width="600" height="74" alt="Mecosin"/></a><button class="ref-menu" aria-expanded="false" aria-controls="reference-nav"><Icon name="menu"/><span>Menu</span></button><nav id="reference-nav" aria-label="Homepage navigation"><HomeMenu />{menu.map(([href,label])=><a href={href}>{label}</a>)}</nav><div class="ref-tools"><a href="/produk/" aria-label="Search products"><Icon name="search"/></a><a href="/perusahaan/#kontak" aria-label="Contact Mecosin"><Icon name="person"/></a><a href="/keranjang/" aria-label="Shopping bag"><Icon name="bag"/></a></div><a href="/kemitraan/" class="ref-header-cta">{variant==='business'?'Start a partnership':variant==='consumer'?'Business & partnerships':'Partner with us'}<Icon name="arrow"/></a></div></header>
+<main id="main"><slot/></main>
+{variant === 'consumer' && <MecosinChat />}
+{variant === 'consumer' && <CartDrawer />}
+<footer class="ref-footer" data-section="footer"><div class="ref-wrap ref-footer-grid"><div class="ref-footer-brand"><img src="/images/logo.webp" width="600" height="74" alt="Mecosin" loading="lazy"/><p>Herbal products. Familiar names.<br>A story that began in 1961.</p><a href="tel:+622122126582">(021) 2212 6582</a></div><div><h3>{variant==='business'?'Business':'Shop'}</h3><a href="/produk/">Our products</a><a href="/services/">Manufacturing</a><a href="/kemitraan/">Partnerships</a><a href="/bantuan/">Product information</a></div><div><h3>Knowledge</h3><a href="/artikel/">Activities & articles</a><a href="/bantuan/">Product guide</a><a href="/discoveries/">Sustainability</a></div><div><h3>Company</h3><a href="/about/">Our story</a><a href="/team/">Our team</a><a href="/partners/">Our partners</a><a href="/career/">Grow with us</a></div><div class="ref-newsletter"><h3>Stay connected with Mecosin</h3><p>Explore company updates, product information and activities.</p><a class="ref-email-link" href="/perusahaan/#kontak">Contact our team <Icon name="arrow"/></a><div class="ref-social"><a href="/artikel/" aria-label="Company activities"><Icon name="book"/></a><a href="/kemitraan/" aria-label="Business partnerships"><Icon name="globe"/></a><a href="/bantuan/" aria-label="Product information"><Icon name="leaf"/></a></div></div></div><div class="ref-wrap ref-footer-bottom"><span>© Mecosin Indonesia</span><div><a href="/presentation/">Presentation</a><a href="/quotation/">Quotation</a><a href="#main" aria-label="Back to top">Back to top ↑</a></div></div><p class="ref-disclosure ref-wrap">Design preview. Product imagery and company photographs use Mecosin sources; hero atmosphere includes generated illustration, not actual staff or facility evidence. No payment or inquiry is sent from this page. Product guidance is general information, not medical advice.</p></footer>
+<dialog id="ref-film" aria-labelledby="ref-film-title"><div class="ref-dialog-head"><h2 id="ref-film-title">Mecosin company introduction</h2><button data-close-film aria-label="Close video">×</button></div><video controls playsinline preload="none" poster="/media/company-poster.webp" data-film-src="/media/company-hero.mp4"></video><p>Company introduction supplied by Mecosin.</p></dialog>
+
+<script>
+import { setup } from '../scripts/site';
+if(document.querySelector('.reference-site.consumer'))setup();
+document.documentElement.classList.add('ref-js');
+const menu=document.querySelector<HTMLButtonElement>('.ref-menu');
+const nav=document.querySelector<HTMLElement>('#reference-nav');
+function closeMenu(){menu?.setAttribute('aria-expanded','false');nav?.classList.remove('is-open');}
+menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav?.classList.toggle('is-open',open);});
+nav?.addEventListener('click',e=>{if((e.target as Element).closest('a'))closeMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.getAttribute('aria-expanded')==='true'){closeMenu();menu.focus();}});
+const dialog=document.querySelector<HTMLDialogElement>('#ref-film');const video=dialog?.querySelector('video');let opener:HTMLElement|null=null;
+document.querySelectorAll<HTMLElement>('[data-open-film]').forEach(button=>button.addEventListener('click',()=>{if(!dialog||!video)return;opener=button;video.src=video.dataset.filmSrc||'';dialog.showModal();video.play().catch(()=>{});}));
+dialog?.querySelector('[data-close-film]')?.addEventListener('click',()=>dialog.close());
+dialog?.addEventListener('close',()=>{video?.pause();opener?.focus();});
+dialog?.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
+document.querySelectorAll<HTMLFormElement>('[data-local-inquiry]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const status=form.querySelector<HTMLElement>('[role=status]');if(status)status.textContent='Your information stays on this page. Please contact Mecosin to send your inquiry.';}));
+</script>
+</body></html>

@@ -7,7 +7,7 @@ try {
     const context = await browser.newContext({ viewport: { width, height }, reducedMotion: 'reduce' });
     const page = await context.newPage();
     await page.goto(base + '/produk/');
-    assert.equal(await page.locator('html').getAttribute('lang'), 'en');
+    assert.equal(await page.locator('html').getAttribute('lang'), 'id');
     await page.locator('#language').selectOption('id');
     const add = page.locator('[data-add="laserin-dewasa"]');
     await add.click();

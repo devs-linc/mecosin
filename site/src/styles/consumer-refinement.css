@@ -1,0 +1,47 @@
+/* Homepage 2 only: approved Penpot hero, brand highlights and shopping cards. */
+@media(max-width:480px){.consumer .mecosin-chat-launcher{width:52px;height:52px;padding:12px;justify-content:center}.consumer .mecosin-chat-launcher>span{display:none}}
+
+.consumer .ref-hero{background:#f4f3e7;isolation:isolate}
+.consumer .consumer-full-bleed{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:0;z-index:-2}
+.consumer .ref-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#f4f3e7e6 0%,#f4f3e7ad 36%,transparent 60%);z-index:-1;pointer-events:none}
+.consumer .ref-hero-grid{grid-template-columns:1fr 1fr;min-height:650px;gap:40px}
+.consumer .ref-hero .ref-hero-copy{padding:42px 0;max-width:560px}
+.consumer .ref-consumer-image{min-height:600px;position:relative;align-self:stretch}
+.consumer .ref-consumer-image::after{display:none}
+.consumer .ref-hero-products{left:8%;right:7%;bottom:34px;height:155px;gap:5%}
+.consumer .ref-hero-products img{height:145px;max-height:145px;width:28%;filter:drop-shadow(0 12px 10px #243c302e)}
+.consumer .ref-question{width:100%;text-align:left;background:white;font-size:13px}
+.consumer .ref-chips>button{border:1px solid #d8e2cc;background:#f7faf3;border-radius:18px;padding:6px 12px;min-height:36px;font-size:11px;color:#355b38}
+.consumer .ref-chips>button:hover{background:#e8f0df}
+.consumer .ref-advisor .ref-btn{font-size:12px}
+.consumer .ref-advisor-title small{font-size:13px}.consumer .ref-advisor .ref-fine{font-size:12px;line-height:1.55;color:#526449}
+.consumer .ref-concerns{padding:54px 0;background:#faf9f3}
+.consumer-collection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.consumer-collection{display:grid;grid-template-columns:.85fr 1fr;position:relative;min-width:0;min-height:250px;border-radius:14px;overflow:hidden;background:#edf2e6;border:1px solid #dce5d3}
+.consumer-collection:nth-child(2){background:#f3eedc;border-color:#e2ddca}
+.consumer-collection:nth-child(3){background:#f2eae4;border-color:#e5dcd3}
+.consumer-collection:nth-child(4){background:#e7eff0;border-color:#d5e1e1}
+.consumer-collection-photo{width:100%;height:100%;object-fit:cover;min-height:250px}
+.consumer-collection-copy{padding:27px 24px;display:flex;flex-direction:column;min-width:0}
+.consumer-collection-copy>span{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#657758}
+.consumer-collection-copy h3{font-size:24px;letter-spacing:-.04em;line-height:1.15;margin:14px 0 12px;max-width:230px}
+.consumer-collection-copy>p{font-size:13px;color:#66735e;line-height:1.6}
+.consumer-collection-product{margin-top:auto;display:flex;align-items:center;gap:12px;padding-top:22px;min-width:0}
+.consumer-collection-product>img{width:58px;height:64px;object-fit:contain}
+.consumer-collection-product>span{font-size:11px;line-height:1.45;flex:1;min-width:0}
+.consumer-collection-product>svg{width:32px;height:32px;padding:8px;border-radius:50%;border:1px solid #8ea27f}
+.consumer .ref-products{padding:52px 0;background:white}
+.consumer .ref-products .ref-section-heading p{font-size:14px}
+.consumer .ref-product-grid{gap:20px}
+.consumer .ref-product-card{border-radius:12px;padding:20px 18px 16px;border:1px solid #e2e7db;background:#fbfcf8}
+.consumer .ref-product-image{height:165px;margin-bottom:12px;background:radial-gradient(ellipse,#eaf0dd00,#f2f5e7)}
+.consumer .ref-product-image img{height:155px;max-height:155px;width:100%;object-fit:contain}
+.consumer .ref-product-card h3{font-size:16px;min-height:46px;margin-top:7px;line-height:1.35}
+.consumer .ref-product-card>p{font-size:12px;margin-top:6px;color:#6b775f}
+.consumer .ref-brand-name{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.consumer .ref-product-action{margin-top:20px}
+.consumer .ref-product-action>a:first-child{width:100%;justify-content:center;background:var(--forest);color:white;border-radius:24px;min-height:44px;font-size:12px}
+.consumer .ref-product-action>a:last-child{display:none}
+@media(max-height:560px){.consumer #mecosin-chat[open]{overflow-y:auto}.consumer .mecosin-chat-messages{flex:none;min-height:0;height:150px}.consumer .mecosin-chat-head,.consumer .mecosin-chat-topics,.consumer .mecosin-chat-product,.consumer #mecosin-chat-form,.consumer .mecosin-chat-note{flex-shrink:0}}
+@media(max-width:1100px){.consumer .ref-hero-grid{min-height:680px;gap:25px}.consumer .ref-hero h1{font-size:46px}.consumer .ref-hero .ref-hero-copy{padding-top:35px}.consumer-collection-copy{padding:22px 18px}.consumer-collection-copy h3{font-size:22px}.consumer .ref-product-grid{gap:13px}.consumer .ref-product-card{padding-inline:13px}.consumer .ref-product-card h3{font-size:14px}.consumer .ref-product-image{height:150px}.consumer .ref-product-image img{height:140px;max-height:140px}}
+@media(max-width:760px){.consumer .ref-hero-grid{display:flex;flex-direction:column;gap:0;min-height:0;width:90%}.consumer .ref-hero .ref-hero-copy{padding:34px 0 20px;max-width:none;width:100%;z-index:1}.consumer .ref-hero h1{font-size:42px;max-width:350px}.consumer .ref-hero-copy>p:not(.ref-eyebrow){font-size:14px;max-width:350px}.consumer .ref-advisor{padding:18px}.consumer .ref-advisor-title small{font-size:12px}.consumer .ref-chips>button{font-size:12px;min-height:36px}.consumer .ref-advisor .ref-fine{font-size:11px}.consumer .consumer-full-bleed{top:auto;bottom:0;left:0;width:100%;height:365px;object-fit:cover;object-position:77% center;z-index:0}.consumer .ref-hero::before{background:linear-gradient(0deg,transparent 260px,#f4f3e7 385px);z-index:1}.consumer .ref-consumer-image{min-height:330px;width:100%;z-index:2}.consumer .ref-hero-products{height:130px;bottom:22px;left:2%;right:20%;gap:5%}.consumer .ref-hero-products img{height:120px;max-height:120px;width:28%}.consumer .ref-concerns{padding:36px 0}.consumer-collection-grid{grid-template-columns:1fr;gap:18px}.consumer-collection{min-height:220px;grid-template-columns:.9fr 1fr}.consumer-collection-photo{min-height:220px}.consumer-collection-copy{padding:20px 17px}.consumer-collection-copy>span{font-size:9px}.consumer-collection-copy h3{font-size:22px;margin-block:12px 10px}.consumer-collection-copy>p{font-size:12px}.consumer-collection-product{padding-top:14px;gap:9px}.consumer-collection-product>img{width:44px;height:53px}.consumer-collection-product>span{font-size:10px}.consumer-collection-product>svg{width:26px;height:26px;padding:6px}.consumer .ref-products{padding:36px 0}.consumer .ref-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 13px}.consumer .ref-product-card{padding:16px 13px}.consumer .ref-product-image{height:135px}.consumer .ref-product-image img{height:128px;max-height:128px}.consumer .ref-product-card h3{font-size:15px;min-height:42px}.consumer .ref-product-card>p{font-size:11px}.consumer .ref-product-action{margin-top:15px}.consumer .ref-product-action>a:first-child{font-size:11px}.consumer .ref-brand-name{font-size:10px}}

@@ -2,6 +2,15 @@
 
 Astro website prototype with bilingual product information, local cart and simulated checkout. The English presentation is available at `/presentation/`.
 
+## Shopping preview
+
+- `/design/consumer/`: approved consumer homepage with Laserin/MecoVit highlights.
+- `/produk/`: 20-product catalogue, search, brand/category/price filters and sorting.
+- `/produk/laserin-sachet/`: example detail with shipping preview, reviews before specifications and description, quantity, add-to-cart and buy-now.
+- `/keranjang/` and `/checkout/`: local browser cart and explicitly simulated checkout.
+
+Shopping controls are Indonesian-first. Prices, delivery estimates and rating/sold counts are illustrative; no fictional customer reviews are published. Checkout only accepts fictional choices, never requests payment credentials and sends no data. Product packshots retain original Mecosin artwork. Generated hero/product-set backgrounds are illustrations, not evidence of actual staff or facilities.
+
 ## Build
 
 Requires Node.js supported by Astro 7 and npm.

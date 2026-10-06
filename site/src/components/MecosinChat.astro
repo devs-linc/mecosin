@@ -1,0 +1,41 @@
+---
+import Icon from './ReferenceIcon.astro';
+import products from '../data/products.json';
+---
+<button class="mecosin-chat-launcher" type="button" data-open-chat aria-label="Open Ask Mecosin" aria-haspopup="dialog" aria-controls="mecosin-chat" hidden><Icon name="leaf"/><span>Ask Mecosin</span></button>
+<dialog id="mecosin-chat" aria-labelledby="mecosin-chat-title">
+  <header class="mecosin-chat-head"><div><p>Mecosin product guide</p><h2 id="mecosin-chat-title">Ask Mecosin</h2></div><button type="button" data-close-chat aria-label="Close Ask Mecosin">×</button></header>
+  <div class="mecosin-chat-messages" role="log" aria-live="polite" aria-relevant="additions"><p class="mecosin-chat-reply">Welcome. Explore product information, buying options or business partnerships.</p></div>
+  <div class="mecosin-chat-topics">{['Products','Ingredients','Buying','Partnerships','Safety'].map(topic=><button type="button" data-widget-topic={topic}>{topic}</button>)}</div>
+  <label class="mecosin-chat-product">Choose a product<select id="widget-product">{products.map(product=><option value={product.slug}>{product.name}</option>)}</select></label>
+  <form id="mecosin-chat-form" method="dialog"><label class="chat-sr-only" for="mecosin-chat-input">Your question</label><input id="mecosin-chat-input" name="question" placeholder="Ask about Mecosin products…" maxlength="500" autocomplete="off"/><button type="submit" aria-label="Send question"><Icon name="arrow"/></button></form>
+  <p class="mecosin-chat-note">Interactive preview with prepared information, not a connected AI service. Messages stay on this page. No diagnosis or personal dosage advice.</p>
+</dialog>
+<style>
+.mecosin-chat-launcher[hidden]{display:none}.mecosin-chat-launcher{position:fixed;right:22px;bottom:20px;z-index:35;display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 18px;border:0;border-radius:30px;background:#356843;color:white;box-shadow:0 6px 22px #14382730;font-size:13px}.mecosin-chat-launcher svg{width:22px;height:22px}#mecosin-chat{position:fixed;inset:auto 22px 20px auto;margin:0;width:380px;max-width:calc(100vw - 24px);height:640px;max-height:calc(100dvh - 40px);padding:0;border:1px solid #c9d7c1;border-radius:18px;background:#fbfcf6;color:#243c30;box-shadow:0 12px 50px #17352730;overflow:hidden}#mecosin-chat[open]{display:flex;flex-direction:column}#mecosin-chat::backdrop{background:#153d2418}.mecosin-chat-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px;background:#356843;color:white}.mecosin-chat-head p{font-size:11px;color:#d7e6d1}.mecosin-chat-head h2{font:600 24px/1.2 Arial;margin-top:4px}.mecosin-chat-head button{width:44px;height:44px;border:0;background:transparent;color:white;font-size:28px}.mecosin-chat-messages{flex:1;min-height:80px;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px}.mecosin-chat-messages :global(.mecosin-chat-reply),.mecosin-chat-messages :global(.mecosin-chat-user){flex:none;margin:0;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.6;background:white;border:1px solid #dde5d7;white-space:pre-wrap}.mecosin-chat-messages :global(.mecosin-chat-user){background:#e6efdf;align-self:flex-end;max-width:90%}.mecosin-chat-messages :global(.mecosin-chat-reply a){display:block;min-height:44px;padding-top:10px;color:#356843;font-weight:600;text-decoration:underline}.mecosin-chat-topics{display:flex;flex-wrap:wrap;gap:6px;padding:10px 18px}.mecosin-chat-topics button{min-height:36px;border:1px solid #c6d6bc;background:#f3f7ed;border-radius:20px;padding:7px 12px;font-size:12px}.mecosin-chat-product{display:grid;gap:5px;padding:0 18px 12px;font-size:11px}.mecosin-chat-product select{width:100%;min-height:42px;border:1px solid #c6d6bc;border-radius:8px;background:white;padding:8px 12px;font-size:12px}#mecosin-chat-form{display:flex;gap:8px;padding:12px 18px;border-top:1px solid #dce5d4}#mecosin-chat-input{flex:1;min-width:0;min-height:44px;border:1px solid #c6d6bc;border-radius:9px;padding:10px 12px;font-size:13px;background:white}#mecosin-chat-form button{width:44px;height:44px;border:0;border-radius:50%;background:#356843;color:white;display:grid;place-items:center}#mecosin-chat-form svg{width:19px;height:19px}.mecosin-chat-note{font-size:10px;line-height:1.5;color:#5a6d51;padding:0 18px 14px}.chat-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}@media(max-width:480px){#mecosin-chat{inset:auto 12px 12px auto;width:calc(100vw - 24px);max-height:calc(100dvh - 24px);height:650px}.mecosin-chat-launcher{right:14px;bottom:14px}.mecosin-chat-head{padding:16px}.mecosin-chat-messages{padding:14px}}
+</style>
+<script>
+document.querySelector<HTMLButtonElement>('.mecosin-chat-launcher')?.removeAttribute('hidden');
+import products from '../data/products.json';
+const dialog=document.querySelector<HTMLDialogElement>('#mecosin-chat');
+const log=dialog?.querySelector<HTMLElement>('.mecosin-chat-messages');
+const input=dialog?.querySelector<HTMLInputElement>('#mecosin-chat-input');
+const select=dialog?.querySelector<HTMLSelectElement>('#widget-product');
+let opener:HTMLElement|null=null;
+function add(text:string,user=false,href?:string){if(!log)return;const bubble=document.createElement('p');bubble.className=user?'mecosin-chat-user':'mecosin-chat-reply';bubble.textContent=text;if(href){const link=document.createElement('a');link.href=href;link.textContent=' Explore more ↗';bubble.append(link);}log.append(bubble);while(log.children.length>16)log.firstElementChild?.remove();log.scrollTop=log.scrollHeight;}
+function answer(topic:string){
+ if(!log)return;
+ const product=products.find(p=>p.slug===select?.value);
+ if(topic==='Products'&&product){add(`${product.name}\nOfficial catalogue excerpt (Indonesian): ${product.excerpt}\nRead the complete product label before use.`,false,`/produk/${product.slug}/`);return;}
+ if(topic==='Ingredients'){add('Ingredients and formulations differ by product. Read the official product page and packaging; this preview does not infer ingredients or make personal health recommendations.',false,product?`/produk/${product.slug}/`:'/produk/');return;}
+ if(topic==='Buying'){add('Explore the Mecosin catalogue and the purchase channels listed for each product. This preview cannot check stock, create an order or process payment.',false,'/produk/');return;}
+ if(topic==='Partnerships'){add('Mecosin lists manufacturing, product development, market management and importation services. Contact its business team to discuss requirements.',false,'/kemitraan/');return;}
+ add('This guide does not diagnose symptoms, recommend personal dosage or guarantee product suitability. Ask a doctor or pharmacist about health conditions, pregnancy, breastfeeding, children or medicine interactions. Seek urgent medical help for severe symptoms.');
+}
+document.querySelectorAll<HTMLElement>('[data-open-chat]').forEach(button=>button.addEventListener('click',event=>{event.preventDefault();if(!dialog)return;opener=button;if(!dialog.open)dialog.showModal();const topic=button.dataset.chatTopic;if(topic)answer(topic);input?.focus();}));
+dialog?.querySelector('[data-close-chat]')?.addEventListener('click',()=>dialog.close());
+dialog?.addEventListener('close',()=>opener?.focus());
+dialog?.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+dialog?.querySelectorAll<HTMLElement>('[data-widget-topic]').forEach(button=>button.addEventListener('click',()=>answer(button.dataset.widgetTopic||'Safety')));
+dialog?.querySelector('form')?.addEventListener('submit',event=>{event.preventDefault();const question=input?.value.trim();if(!question)return;add(question,true);if(input)input.value='';const text=question.toLowerCase();const safety=/dose|dosage|safe|pregnan|breastfeed|symptom|diagnos|child|obat|hamil|dosis|aman|gejala|sakit|anak/.test(text);answer(safety?'Safety':/partner|business|manufactur|mitra|bisnis/.test(text)?'Partnerships':/buy|order|pay|stock|beli|pesan/.test(text)?'Buying':/ingredient|bahan|komposisi/.test(text)?'Ingredients':'Products');});
+</script>
