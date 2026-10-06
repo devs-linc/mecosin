@@ -14,8 +14,7 @@ try {
   assert.deepEqual(await page.locator('#pembayaran tbody tr td:nth-child(2)').allTextContents(),['40%','40%','20%']);
   const text=await page.locator('#pembayaran').innerText();
   assert.match(text,/progres pekerjaan mencapai 50%/);
-  assert.match(text,/minimum kontrak 6 bulan/);
-  assert.match(text,/dibayarkan bulanan melalui invoice bulanan/);
+  assert.doesNotMatch(text,/Subscription dan layanan bulanan|minimum kontrak 6 bulan|invoice bulanan/i);
   assert.equal(await page.locator('.price-card').count(),8);
   await page.locator('.jump a[href="#pembayaran"]').click();
   assert.equal(await page.locator('.jump [aria-current="location"]').getAttribute('href'),'#pembayaran');
@@ -25,5 +24,5 @@ try {
   if(width===1440)await page.pdf({path:'evidence/quotation-terms/quotation-mecosin.pdf',preferCSSPageSize:true,printBackground:true});
   await page.close();
  }
- console.log('PASS quotation: 40/40/20 milestones, progress 50%, minimum six months, monthly invoices, 390/1440px navigation/print and exact served bytes');
+ console.log('PASS quotation: 40/40/20 milestones, progress 50%, subscription billing block absent, 390/1440px navigation/print and exact served bytes');
 } finally { await browser.close(); }
