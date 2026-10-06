@@ -18,9 +18,10 @@ const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/u
 const samples=[];
 try{
  for(const [width,height] of [[1440,1000],[1024,900],[820,1180],[390,844],[360,640]]){
+  for(const route of ['/', '/design/consumer/']){
   const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto(base+'/design/consumer/');await page.evaluate(()=>document.fonts.ready);
+  await page.goto(base+route);await page.evaluate(()=>document.fonts.ready);
   await page.locator('.ref-hero img').evaluateAll(es=>Promise.all(es.map(e=>e.decode())));
   const geometry=await page.evaluate(()=>{
    const layer=document.querySelector('.consumer-hero-composition').getBoundingClientRect();
@@ -38,9 +39,10 @@ try{
   }
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.deepEqual(errors,[]);
-  await page.locator('.ref-hero').screenshot({path:new URL(`hero-${width}.png`,out).pathname});
-  samples.push({width,height,...geometry});await page.close();
+  await page.locator('.ref-hero').screenshot({path:new URL(`${route==='/'?'root':'hero'}-${width}.png`,out).pathname});
+  samples.push({route,width,height,...geometry});await page.close();
+  }
  }
  await writeFile(new URL('checks.json',out),JSON.stringify({samples,source:'Live Penpot hero coordinates; three original product images'},null,2));
- console.log('PASS hero: five viewports, exact Penpot product geometry, genuine packshots, decoded portrait and no page overflow/errors');
+ console.log('PASS hero: root and Homepage 2 at five viewports, exact Penpot product geometry, genuine packshots, decoded portrait and no page overflow/errors');
 }finally{await browser.close();}

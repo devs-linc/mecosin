@@ -51,7 +51,7 @@ try {
     for (const route of ['/', '/produk/', '/produk/laserin-dewasa/', '/keranjang/', '/checkout/', '/bantuan/', '/kemitraan/', '/loyalitas/']) {
       await page.goto(base + route);
       assert.doesNotMatch(await page.locator('main').innerText(), /frontend|\bdemo\b/i, route);
-      assert.match(await page.locator('footer').innerText(), /Frontend demo/);
+      assert.match(await page.locator('footer').innerText(), route==='/' ? /Design preview/ : /Frontend demo/);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     }
     await context.close();

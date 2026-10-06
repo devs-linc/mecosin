@@ -6,9 +6,11 @@ const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',hea
 try {
  for(const width of [360,390,820,1024,1440]) {
   const c=await browser.newContext({viewport:{width,height:900}}),p=await c.newPage();
-  await p.goto(base);await p.waitForFunction(()=>document.querySelector('#hero-video').currentTime>0);
-  assert.equal(await p.locator('.hero button').count(),0);
-  assert.equal(await p.locator('#video-toggle').innerText(),'');
+  await p.goto(base);
+  assert.equal(await p.locator('body').getAttribute('class'),'reference-site consumer');
+  assert.equal(await p.locator('.consumer-brand-feature').count(),2);
+  assert.equal(await p.locator('.home-menu [aria-current="page"]').getAttribute('href'),'/design/consumer/');
+  await p.goto(base+'/perusahaan/');
   assert.deepEqual(await p.locator('#language').evaluate(e=>{const s=getComputedStyle(e);return [s.backgroundRepeat,s.backgroundSize]}),['no-repeat','16px auto']);
   if(width<=760)await p.locator('.menu-toggle').click();
   await p.locator('.company-nav summary').click();
