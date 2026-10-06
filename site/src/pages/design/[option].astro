@@ -1,0 +1,14 @@
+---
+import ReferenceLayout from '../../layouts/ReferenceLayout.astro';
+import Section from '../../components/ReferenceSections.astro';
+export function getStaticPaths() {
+  return [
+    {params:{option:'hybrid'},props:{title:'Heritage & science',sections:['hero','concerns','products','trust','journey','knowledge','history','business','partners']}},
+    {params:{option:'consumer'},props:{title:'Everyday wellness',sections:['hero','concerns','products','trust','ingredients','confidence','guide','transparency','rewards','business','sustainability']}},
+    {params:{option:'business'},props:{title:'Business partnership',sections:['hero','capabilities','why','process','quality','expertise','history','knowledge','partners','tour','sustainability','inquiry']}},
+  ];
+}
+const { option } = Astro.params;
+const { title, sections } = Astro.props;
+---
+<ReferenceLayout variant={option} title={title}>{sections.map(section=><Section section={section} variant={option}/>)}</ReferenceLayout>

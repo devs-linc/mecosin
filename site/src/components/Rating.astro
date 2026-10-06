@@ -1,0 +1,4 @@
+---
+const { score = '4.8', sold = '650 terjual' } = Astro.props;
+---
+<div class="shop-rating" aria-label={`Contoh rating ${score} dari 5; ${sold}`}><span aria-hidden="true" class="shop-stars">{Array.from({length:5},()=> <svg viewBox="0 0 24 24"><path d="M12 2.5l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.52l-5.88 3.09 1.12-6.55L2.48 9.42l6.58-.96z"/></svg>)}</span><strong>{score}</strong><span class="shop-sold">{sold}</span></div>

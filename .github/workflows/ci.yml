@@ -1,0 +1,31 @@
+name: Website checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - name: Cart and browser checks
+        run: |
+          python3 -m http.server 4342 --bind 127.0.0.1 --directory dist > "$RUNNER_TEMP/mecosin-preview.log" 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          for attempt in 1 2 3 4 5; do
+            if curl -fsS -o /dev/null http://127.0.0.1:4342/produk/; then break; fi
+            sleep 1
+          done
+          PREVIEW_URL=http://127.0.0.1:4342 npm run check

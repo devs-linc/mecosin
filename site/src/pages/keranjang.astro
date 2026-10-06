@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import T from '../components/T.astro';
+import '../styles/shopping.css';
 ---
 <Layout title="Your cart | Mecosin"><section class="page-intro section-wrap"><p class="section-label">01 / 02</p><h1><T id="Keranjang Anda." en="Your cart." /></h1><p><T id="Periksa pilihan dan jumlah produk sebelum melanjutkan." en="Review your selection and quantities before continuing." /></p></section><section class="section-wrap journey" data-cart-page><div><div id="cart-items"></div><div id="cart-empty"><h2><T id="Keranjang masih kosong." en="Your cart is empty." /></h2><p><T id="Jelajahi katalog dan temukan pilihan Anda." en="Explore the catalog and find your selection." /></p><a class="button" href="/produk/"><T id="Lihat katalog" en="Browse catalog" /></a></div></div><aside class="summary panel"><h2><T id="Ringkasan belanja" en="Cart summary" /></h2><div data-totals></div><label class="check"><input type="checkbox" id="demo-promo" /><span><T id="Gunakan diskon 10%" en="Apply 10% discount" /></span></label><a class="button" id="checkout-link" href="/checkout/"><T id="Lanjut ke checkout" en="Continue to checkout" /></a></aside></section></Layout>
