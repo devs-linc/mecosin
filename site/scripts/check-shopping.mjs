@@ -65,7 +65,11 @@ try{
   await page.locator('#checkout-form button[type=submit]').click();assert.match(await page.locator('#completion').innerText(),/Bukan pesanan/);
   assert.equal(await page.evaluate(()=>localStorage.getItem('mecosin-demo-cart-v1')),'[]');
   assert.deepEqual(await page.evaluate(()=>Object.keys(localStorage).filter(k=>/address|person|payment|phone/.test(k))),[]);
-  await page.goto(base+'/design/consumer/');await ready(page);await bounds(page);
+  await page.goto(base+'/design/consumer/');await ready(page);
+  const alternativeMain=await page.locator('main').innerHTML();
+  await page.goto(base+'/');await ready(page);await bounds(page);
+  assert.equal(await page.locator('main').innerHTML(),alternativeMain,'root uses exact Homepage 2 content');
+  assert.equal(await page.locator('.home-menu [aria-current="page"]').getAttribute('href'),'/design/consumer/');
   assert.equal(await page.locator('.consumer-brand-feature').count(),2);assert.equal(await page.locator('#products [data-add]').count(),5);
   await page.locator('#products [data-add="laserin-sachet"]').click();assert.ok(await page.locator('#cart-drawer').evaluate(e=>e.open));await page.keyboard.press('Escape');
   await page.locator('[data-open-chat]').first().click();assert.ok(await page.locator('#mecosin-chat').evaluate(e=>e.open));await page.keyboard.press('Escape');
