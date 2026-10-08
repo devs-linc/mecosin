@@ -10,7 +10,7 @@ import '../styles/consumer-refinement.css';
 import '../styles/approved-home.css';
 const { variant, title } = Astro.props;
 
-const menu = variant === 'business' ? [['#capabilities','Capabilities'],['/services/','Manufacturing'],['#quality','Research & quality'],['/products/','Products'],['#knowledge','Herbal knowledge'],['/about/','About']] : [['#concerns','Shop by need'],['#products','Products'],[variant==='consumer'?'#ingredients':'#knowledge','Herbal knowledge'],[variant==='consumer'?'#transparency':'#journey','Research & innovation'],['#business','For partners'],[variant==='consumer'?'/about/':'#history','Our story']];
+const menu = variant === 'business' ? [['#capabilities','Capabilities'],['/services/','Manufacturing'],['#quality','Research & quality'],['/products/','Products'],['#knowledge','Herbal knowledge'],['/about/','About']] : [['/produk/','Store'],['#products','Products'],[variant==='consumer'?'#ingredients':'#knowledge','Herbal knowledge'],[variant==='consumer'?'#transparency':'#journey','Research & innovation'],['#business','For partners'],[variant==='consumer'?'/about/':'#history','Our story']];
 ---
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><meta name="color-scheme" content="light"/><title>{title} | Mecosin</title><meta name="description" content="Mecosin Indonesia: herbal products, supplements, body care and business partnerships. Since 1961."/><link rel="icon" href="/images/logo.webp"/></head>

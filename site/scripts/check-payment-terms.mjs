@@ -14,8 +14,14 @@ try {
   assert.deepEqual(await page.locator('#pembayaran tbody tr td:nth-child(2)').allTextContents(),['40%','40%','20%']);
   const text=await page.locator('#pembayaran').innerText();
   assert.match(text,/progres pekerjaan mencapai 50%/);
-  assert.doesNotMatch(text,/Subscription dan layanan bulanan|minimum kontrak 6 bulan|invoice bulanan/i);
-  assert.equal(await page.locator('.price-card').count(),8);
+  assert.doesNotMatch(text,/minimum kontrak 6 bulan|invoice bulanan/i);
+  assert.match(text,/No initial investment/);
+  assert.match(text,/kontrak 12 bulan, trial 3 bulan dibayar upfront Rp45 juta/);
+  assert.equal(await page.locator('.price-card').count(),5);
+  const offer=await page.locator('main').innerText();
+  assert.doesNotMatch(offer,/Rp30\.000\.000|Rp3\.000\.000|AI agent internal|bootcamp/i);
+  assert.match(await page.locator('#ringkasan').innerText(),/Rp70\.000\.000 sekali bayar/);
+  assert.match(await page.locator('#ringkasan').innerText(),/Maintenance Rp5\.000\.000\/bulan/);
   await page.locator('.jump a[href="#pembayaran"]').click();
   assert.equal(await page.locator('.jump [aria-current="location"]').getAttribute('href'),'#pembayaran');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -24,5 +30,5 @@ try {
   if(width===1440)await page.pdf({path:'evidence/quotation-terms/quotation-mecosin.pdf',preferCSSPageSize:true,printBackground:true});
   await page.close();
  }
- console.log('PASS quotation: 40/40/20 milestones, progress 50%, subscription billing block absent, 390/1440px navigation/print and exact served bytes');
+ console.log('PASS quotation: two website options, no initial investment, 12-month subscription/45m trial, removed packages absent, 40/40/20 retained and exact served bytes');
 } finally { await browser.close(); }
