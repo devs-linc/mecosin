@@ -20,8 +20,12 @@ try {
   assert.equal(await page.locator('.price-card').count(),5);
   const offer=await page.locator('main').innerText();
   assert.doesNotMatch(offer,/Rp30\.000\.000|Rp3\.000\.000|AI agent internal|bootcamp/i);
-  assert.match(await page.locator('#ringkasan').innerText(),/Rp70\.000\.000 sekali bayar/);
-  assert.match(await page.locator('#ringkasan').innerText(),/Maintenance Rp5\.000\.000\/bulan/);
+  assert.match(await page.locator('[data-service="commerce"] .amount').innerText(),/Rp70\.000\.000/);
+  assert.match(await page.locator('[data-service="maintenance"] .amount').innerText(),/Rp5\.000\.000/);
+  assert.match(offer,/Pembayaran subscription yang sudah dilakukan tidak mengurangi biaya pembelian source code/);
+  assert.match(offer,/Source code diserahkan setelah pembayaran Rp70\.000\.000 dilunasi/);
+  assert.deepEqual(await page.locator('#ringkasan .price-grid').first().locator('[data-service]').evaluateAll(es=>es.map(e=>e.dataset.service)),['commerce','development']);
+  assert.deepEqual(await page.locator('#ringkasan .price-grid').last().locator('[data-service]').evaluateAll(es=>es.map(e=>e.dataset.service)),['maintenance','seo','live-chat']);
   await page.locator('.jump a[href="#pembayaran"]').click();
   assert.equal(await page.locator('.jump [aria-current="location"]').getAttribute('href'),'#pembayaran');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
