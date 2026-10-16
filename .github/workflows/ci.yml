@@ -29,3 +29,4 @@ jobs:
             sleep 1
           done
           PREVIEW_URL=http://127.0.0.1:4342 npm run check
+          PREVIEW_URL=http://127.0.0.1:4342 SEO_EVIDENCE="$RUNNER_TEMP/seo-presentation" node scripts/check-seo-revamped.mjs
