@@ -66,7 +66,7 @@ export default async function handler(req, res) {
       headers:{'Content-Type':'application/json',Authorization:`Bearer ${process.env.NINE_ROUTER_API_KEY}`},
       body:JSON.stringify({model:process.env.NINE_ROUTER_MODEL || 'gemini-3.8-flash',reasoning_effort:'medium',temperature:0,max_tokens:400,stream:false,response_format:{type:'json_object'},messages:[{role:'system',content:system},...messages]})
     });
-    if(!upstream.ok) throw new Error('provider');
+    if(!upstream.ok) return send(502,{error:'Chat AI sedang sulit dihubungi. Coba lagi sebentar, ya.',code:`UPSTREAM_HTTP_${upstream.status}`});
     const reader=upstream.body.getReader(); const chunks=[]; let size=0;
     while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>65536){await reader.cancel();throw new Error('oversize');}chunks.push(Buffer.from(value));}
     const envelope=JSON.parse(Buffer.concat(chunks).toString('utf8'));
@@ -78,5 +78,5 @@ export default async function handler(req, res) {
     const selected=result.products.map(slug=>catalogue.get(slug));
     const reply='Ini informasi produk yang bisa kamu lihat dari deskripsi resmi Mecosin:\n\n'+selected.map(p=>`${p.name}\n${p.description || 'Deskripsi manfaat belum disertakan di chat. Lihat sumber resmi dan tanyakan ke apoteker untuk informasi penggunaannya.'}`).join('\n\n')+'\n\nIni informasi katalog, bukan penilaian kecocokan pribadi atau jaminan kesembuhan. Mau bahas produk yang mana?';
     return send(200,{reply,sources:selected.map(p=>({name:p.name,url:p.source}))});
-  } catch (error) { return send(error.name==='TimeoutError'?504:502,{error:'Chat AI sedang sulit dihubungi. Coba lagi sebentar, ya.'}); }
+  } catch (error) { return send(error.name==='TimeoutError'?504:502,{error:'Chat AI sedang sulit dihubungi. Coba lagi sebentar, ya.',code:error.name==='TimeoutError'?'UPSTREAM_TIMEOUT':error instanceof SyntaxError?'UPSTREAM_FORMAT':error.message==='invalid output'?'UPSTREAM_CONTRACT':'UPSTREAM_CONNECTION'}); }
 }
