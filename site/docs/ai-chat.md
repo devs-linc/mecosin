@@ -30,7 +30,7 @@ Verify `/models`, structured JSON output, reasoning support and live adversarial
 conversations before release. No silent fallback to another provider/model.
 Request timeout 20s; widget timeout 25s. Secrets and chat text are not logged by
 application code. Provider retention must be confirmed separately. Widget warns
-that messages/context go to AI; history lives in tab memory, never storage.
+that messages are processed through a service provider; history lives in tab memory, never storage.
 
 ## Claim boundaries
 

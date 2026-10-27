@@ -13,6 +13,7 @@ let calls=[];
 globalThis.fetch=async (url,options)=>{
  if(String(url).startsWith('https://router.example.invalid')){
   calls.push(JSON.parse(options.body));
+  await new Promise(resolve=>setTimeout(resolve,500));
   if(fail)return new Response('provider outage',{status:503});
   return Response.json({choices:[{message:{content:JSON.stringify({intent:'products',products:['laserin-sachet']})}}]});
  }
@@ -42,11 +43,18 @@ try{
   page.on('pageerror',error=>errors.push(error.message));
   await page.goto(base);await page.locator('.mecosin-chat-launcher').click();
   assert.ok(await page.locator('#mecosin-chat').evaluate(e=>e.open));
+  assert.equal(await page.locator('#widget-product,[data-widget-topic]').count(),0);
+  assert.equal(await page.locator('.mecosin-chat-head img').count(),1);
+  assert.doesNotMatch(await page.locator('.mecosin-chat-head').innerText(),/Asisten AI/);
+  assert.doesNotMatch(await page.locator('.mecosin-chat-head,.mecosin-chat-note').allTextContents().then(x=>x.join(' ')),/\bAI\b/);
   const input=page.locator('#mecosin-chat-input');
   await input.fill('Apa manfaat Laserin Sachet?');await input.press('Enter');
+  assert.equal(await page.locator('#mecosin-chat-typing').isVisible(),true);
+  assert.equal(await page.locator('#mecosin-chat-typing .typing-dot').count(),3);
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
   assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/membantu meredakan batuk & melegakan tenggorokan/);
   assert.equal(await input.inputValue(),'','input stays empty after success');
+  assert.equal(await page.locator('#mecosin-chat-typing').isVisible(),false);
   assert.equal(await page.locator('.mecosin-chat-reply a').last().getAttribute('href'),'https://mecosin.id/product/Laserin-Sachet');
   await input.fill('Kalau yang itu?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');

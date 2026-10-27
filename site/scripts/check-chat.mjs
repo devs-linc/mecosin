@@ -34,6 +34,8 @@ try {
     assert.equal(data.sources[0].url,'https://mecosin.id/product/Laserin-Sachet');
     assert.equal(captured.model,'ag/gemini-3.8-flash-medium');
     assert.equal(captured.reasoning_effort,'medium');
+    assert.doesNotMatch(data.reply,/Ini informasi katalog|bukan penilaian kecocokan/);
+    assert.match(data.reply,/Mau lihat|Mau bandingkan/);
     answer = {intent:'products', products:['laserin-sachet'], reply:'Pasti sembuh dalam 2 hari'};
     const injected = await post({messages:[{role:'user',content:'Jelaskan produknya'}]});
     assert.equal(injected.status,502,'unexpected model fields rejected');
