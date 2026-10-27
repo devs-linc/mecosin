@@ -37,7 +37,7 @@ The deck check requires Chrome at `/opt/google/chrome/chrome`. The current deck 
 
 ## Scope
 
-This is a frontend prototype: prices and transactions are simulated. No real payment, order processing or AI service is connected. Product statements require client and qualified review before production use.
+Prices and transactions remain simulated; no real payment or order processing is connected. Ask Mecosin now has a server-side AI connector and sourced product knowledge, verified locally with provider fixtures only. Actual 9router access and deployment are pending; see [AI chat setup and limits](site/docs/ai-chat.md). Product statements require client and qualified review before production use.
 
 Internal workspace documents, audit archives, source intake, browser evidence and credentials are excluded. Source publication does not deploy or approve a production website. Brand and product assets remain subject to their owners' rights.
 
