@@ -20,7 +20,7 @@ globalThis.fetch=async (url,options)=>{
 };
 process.env.NINE_ROUTER_BASE_URL='https://router.example.invalid/v1';
 process.env.NINE_ROUTER_API_KEY='fixture-not-a-secret';
-process.env.NINE_ROUTER_MODEL='gemini-3.8-flash';
+process.env.NINE_ROUTER_MODEL='ag/gemini-3.8-flash-medium';
 const server=createServer(async(req,res)=>{
  try{
   if(req.url==='/api/chat')return await handler(req,res);
@@ -46,6 +46,7 @@ try{
   await input.fill('Apa manfaat Laserin Sachet?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
   assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/membantu meredakan batuk & melegakan tenggorokan/);
+  assert.equal(await input.inputValue(),'','input stays empty after success');
   assert.equal(await page.locator('.mecosin-chat-reply a').last().getAttribute('href'),'https://mecosin.id/product/Laserin-Sachet');
   await input.fill('Kalau yang itu?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
@@ -62,8 +63,8 @@ try{
   await input.fill('Apa manfaat Laserin?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
   assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/sulit dihubungi/);
-  assert.equal(await input.inputValue(),'Apa manfaat Laserin?');assert.equal(await input.isEnabled(),true);
-  fail=false;await input.press('Enter');
+  assert.equal(await input.inputValue(),'','input stays empty after failed send');assert.equal(await input.isEnabled(),true);
+  fail=false;await input.fill('Apa manfaat Laserin?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
   assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/Laserin Sachet/);
   assert.deepEqual(errors,[]);

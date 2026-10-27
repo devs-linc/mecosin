@@ -64,7 +64,7 @@ export default async function handler(req, res) {
     const upstream=await fetch(`${base.href.replace(/\/$/,'')}/chat/completions`,{
       method:'POST',redirect:'error',signal:AbortSignal.timeout(20000),
       headers:{'Content-Type':'application/json',Authorization:`Bearer ${process.env.NINE_ROUTER_API_KEY}`},
-      body:JSON.stringify({model:process.env.NINE_ROUTER_MODEL || 'gemini-3.8-flash',reasoning_effort:'medium',temperature:0,max_tokens:400,stream:false,response_format:{type:'json_object'},messages:[{role:'system',content:system},...messages]})
+      body:JSON.stringify({model:process.env.NINE_ROUTER_MODEL || 'ag/gemini-3.8-flash-medium',reasoning_effort:'medium',temperature:0,max_tokens:400,stream:false,response_format:{type:'json_object'},messages:[{role:'system',content:system},...messages]})
     });
     if(!upstream.ok) return send(502,{error:'Chat AI sedang sulit dihubungi. Coba lagi sebentar, ya.',code:`UPSTREAM_HTTP_${upstream.status}`});
     const reader=upstream.body.getReader(); const chunks=[]; let size=0;

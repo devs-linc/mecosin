@@ -14,7 +14,7 @@ try {
   assert.match((await unavailable.json()).error,/belum tersedia/);
   process.env.NINE_ROUTER_BASE_URL = 'https://router.example.invalid/v1';
   process.env.NINE_ROUTER_API_KEY = 'fixture-not-a-secret';
-  process.env.NINE_ROUTER_MODEL = 'gemini-3.8-flash';
+  delete process.env.NINE_ROUTER_MODEL; // Exercise exact production default, not an override.
   process.env.CHAT_ALLOWED_ORIGINS = origin;
   const nativeFetch = globalThis.fetch;
   let answer = {intent:'products', products:['laserin-sachet']};
@@ -32,7 +32,7 @@ try {
     const data = await response.json();
     assert.match(data.reply,/Laserin Sachet membantu meredakan batuk & melegakan tenggorokan\./);
     assert.equal(data.sources[0].url,'https://mecosin.id/product/Laserin-Sachet');
-    assert.equal(captured.model,'gemini-3.8-flash');
+    assert.equal(captured.model,'ag/gemini-3.8-flash-medium');
     assert.equal(captured.reasoning_effort,'medium');
     answer = {intent:'products', products:['laserin-sachet'], reply:'Pasti sembuh dalam 2 hari'};
     const injected = await post({messages:[{role:'user',content:'Jelaskan produknya'}]});
