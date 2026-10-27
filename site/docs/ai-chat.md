@@ -2,7 +2,7 @@
 
 Owner authorized GitHub push/merge and automatic Vercel release. Provider live
 verification is still pending; local acceptance uses explicit test fixtures.
-Non-secret defaults: `https://api.linc.id/v1`, `ag/gemini-3.8-flash-medium`, reasoning
+Non-secret defaults: `https://api.linc.id/v1`, `cx/gpt-6.1-sol`, reasoning
 `medium`, allowed origin `https://mecosin.vercel.app`. The only required secret is
 `NINE_ROUTER_API_KEY`; the variables below can override non-secret defaults.
 
@@ -19,7 +19,7 @@ Astro variables, repository files, browser JS, or Discord:
 - `NINE_ROUTER_BASE_URL`: authorized HTTPS OpenAI-compatible base URL including
   `/v1` if required by that router. Handler appends `/chat/completions`.
 - `NINE_ROUTER_API_KEY`: project-scoped credential.
-- `NINE_ROUTER_MODEL`: exact Owner-confirmed ID `ag/gemini-3.8-flash-medium`.
+- `NINE_ROUTER_MODEL`: exact Owner-confirmed ID `cx/gpt-6.1-sol`.
   Request also includes `reasoning_effort: medium`. Do not substitute another model.
   Composer clears on submit and stays empty even on provider failure; failed
   message remains visible in conversation history rather than restoring input.
