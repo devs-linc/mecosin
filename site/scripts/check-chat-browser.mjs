@@ -21,7 +21,7 @@ globalThis.fetch=async (url,options)=>{
 };
 process.env.NINE_ROUTER_BASE_URL='https://router.example.invalid/v1';
 process.env.NINE_ROUTER_API_KEY='fixture-not-a-secret';
-process.env.NINE_ROUTER_MODEL='ag/gemini-3.8-flash-medium';
+process.env.NINE_ROUTER_MODEL='cx/gpt-6.1-sol';
 const server=createServer(async(req,res)=>{
  try{
   if(req.url==='/api/chat')return await handler(req,res);
@@ -65,7 +65,7 @@ try{
   const before=calls.length;
   await input.fill('Berapa dosis untuk anak saya?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
-  assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/tidak memberi saran medis/);
+  assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/ikuti label kemasan/i);
   assert.equal(calls.length,before);
   assert.equal(await page.evaluate(()=>Object.keys(localStorage).some(k=>/chat/i.test(k))),false);
   assert.ok(await page.locator('#mecosin-chat').evaluate(e=>{const r=e.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight;}));
