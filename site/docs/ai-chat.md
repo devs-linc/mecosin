@@ -34,10 +34,14 @@ that messages are processed through a service provider; history lives in tab mem
 
 ## Claim boundaries
 
-Model classifies intent and selects up to three allowlisted product IDs. Server
-renders conversational approved templates and exact source excerpts; arbitrary
-model-generated prose, claims and links are never rendered. This intentionally
-limits language variety until reviewed free-form generation is authorized.
+Owner authorized flexible conversational prose: model returns a short reply,
+intent and allowlisted product IDs. Prompt separates conversation from claims;
+server screens common medical/claim terms and markup. This heuristic is not a
+proof that all unsupported prose is impossible. Product claims, images and URLs
+are server-owned source data rendered as linked product cards, never model URLs.
+Identity/greetings/thanks use context instead of category templates. Prompt asks
+one relevant preference question at most, no repeated known questions, and one
+product by default (up to three for requested comparison).
 Medical/emergency requests use fixed refusals/escalation, without products.
 Keyword checks are supplementary, not proof of perfect intent classification.
 Matching source products is not a personal suitability assessment.
