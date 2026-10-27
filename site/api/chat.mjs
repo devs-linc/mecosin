@@ -95,7 +95,7 @@ export default async function handler(req, res) {
     if(!result.reply)result.reply='Aku masih di sini kalau ada yang ingin kamu tanyakan.';
     if(result.intent!=='products')return send(200,{reply:result.reply,sources:[]});
     const selected=result.products.map(slug=>catalogue.get(slug));
-    if(/batuk/.test(text)&&/(?:2|dua|3|tiga|[4-9])\s*minggu|sebulan|bulan/.test(text))result.reply+=' Karena batuknya sudah berlangsung lama, sebaiknya periksa ke dokter. Informasi produk ini tidak menggantikan pemeriksaan.';
+    if(/batuk/.test(text)&&/(?:2|dua|3|tiga|[4-9])\s*minggu|sebulan|bulan/.test(text)&&!/(?:periksa|konsultasi|temui).*dokter/i.test(result.reply))result.reply+=' Karena batuknya sudah berlangsung lama, sebaiknya periksa ke dokter. Informasi produk ini tidak menggantikan pemeriksaan.';
     return send(200,{reply:result.reply,sources:selected.map(p=>({name:p.name,url:p.source,image:products.find(item=>item.slug===p.slug)?.image,description:p.description,slug:p.slug}))});
   } catch (error) { return send(error.name==='TimeoutError'?504:502,{error:'Chat sedang sulit dihubungi. Coba lagi sebentar, ya.',code:error.name==='TimeoutError'?'UPSTREAM_TIMEOUT':error instanceof SyntaxError?'UPSTREAM_FORMAT':error.message==='invalid output'?'UPSTREAM_CONTRACT':'UPSTREAM_CONNECTION'}); }
 }
