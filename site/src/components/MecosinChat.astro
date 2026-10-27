@@ -51,7 +51,6 @@ async function send(question:string){
  }catch(error){
   const message=error instanceof Error&&error.name!=='TimeoutError'&&error.name!=='TypeError'?error.message:'Koneksi chat bermasalah. Coba kirim lagi, ya.';
   add(message);if(status)status.textContent='Pesan belum diproses. Kamu bisa mencoba lagi.';
-  if(input)input.value=question;
  }finally{
   busy=false;controls?.forEach(control=>control.disabled=false);log?.setAttribute('aria-busy','false');
   if(log)log.scrollTop=log.scrollHeight;if(dialog?.open)input?.focus();
