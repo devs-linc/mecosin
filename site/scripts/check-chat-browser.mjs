@@ -15,7 +15,7 @@ globalThis.fetch=async (url,options)=>{
   calls.push(JSON.parse(options.body));
   await new Promise(resolve=>setTimeout(resolve,500));
   if(fail)return new Response('provider outage',{status:503});
-  return Response.json({choices:[{message:{content:JSON.stringify({intent:'products',products:['laserin-sachet']})}}]});
+  return Response.json({choices:[{message:{content:JSON.stringify({intent:'products',reply:'Ini pilihan sachet kami.',products:['laserin-sachet']})}}]});
  }
  return nativeFetch(url,options);
 };
@@ -56,6 +56,9 @@ try{
   assert.equal(await input.inputValue(),'','input stays empty after success');
   assert.equal(await page.locator('#mecosin-chat-typing').isVisible(),false);
   assert.equal(await page.locator('.mecosin-chat-reply a').last().getAttribute('href'),'https://mecosin.id/product/Laserin-Sachet');
+  assert.equal(await page.locator('.chat-product-card img').count(),1);
+  await page.locator('.chat-product-card img').evaluate(e=>e.decode());
+  assert.match(await page.locator('.chat-product-card').innerText(),/Lihat produk/);
   await input.fill('Kalau yang itu?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
   assert.equal(calls.at(-1).messages.length,4,'system + multi-turn history');
