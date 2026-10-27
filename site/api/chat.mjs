@@ -82,6 +82,10 @@ export default async function handler(req, res) {
     if(/https?:|www\.|<|>|\b(mg|ml|dosis|dosage|dose|sembuh|cure|guarantee|aman|safe|efek samping|side effect|diagnos|mengobati|menyembuhkan|meredakan|melegakan|memelihara|mengandung|cocok|ampuh|terbukti|pasti|terjamin|guaranteed|treat|relieve|contains|heal|suitable|effective)\b|\bRp\s*\d/i.test(result.reply)) {
       result.reply=result.products.length?'Ini pilihan produk kami yang bisa kamu lihat.':'Boleh ceritakan produk atau pilihan yang ingin kamu cari?';
     }
+    const normalizeQuestion=value=>value.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+    const previousQuestions=new Set(messages.filter(m=>m.role==='assistant').flatMap(m=>m.content.match(/[^.!?\n]+\?/g)||[]).map(normalizeQuestion));
+    result.reply=result.reply.replace(/[^.!?\n]+\?/g,question=>previousQuestions.has(normalizeQuestion(question))?'':question).trim();
+    if(!result.reply)result.reply='Aku masih di sini kalau ada yang ingin kamu tanyakan.';
     if(result.intent!=='products')return send(200,{reply:result.reply,sources:[]});
     const selected=result.products.map(slug=>catalogue.get(slug));
     return send(200,{reply:result.reply,sources:selected.map(p=>({name:p.name,url:p.source,image:products.find(item=>item.slug===p.slug)?.image,description:p.description,slug:p.slug}))});
