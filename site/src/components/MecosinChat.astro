@@ -42,13 +42,13 @@ async function send(question:string){
   if(typeof data.reply!=='string'||!Array.isArray(data.sources))throw new Error('Jawaban belum tersedia. Coba lagi nanti.');
   add(data.reply);
   for(const source of data.sources){
-   try{const url=new URL(source.url);if(url.protocol==='https:'&&!url.username&&!url.password&&['mecosin.id','www.halodoc.com','www.k24klik.com','medicastore.com','www.hbhoz.id','javanesetaste.com','rm.id'].includes(url.host)){
-    const card=document.createElement('a');card.className='chat-product-card';card.href=url.href;card.target='_blank';card.rel='noopener noreferrer';
+   try{const url=new URL(source.url,location.origin);if(url.origin===location.origin&&/^\/produk\/[a-z0-9-]+\/$/.test(url.pathname)){
+    const card=document.createElement('a');card.className='chat-product-card';card.href=url.pathname;
     if(typeof source.image==='string'&&/^\/images\/[a-z0-9-]+\.webp$/.test(source.image)){const image=document.createElement('img');image.src=source.image;image.alt=source.name;image.width=72;image.height=84;card.append(image);}
     const details=document.createElement('span');const name=document.createElement('strong');name.textContent=source.name;
     const description=document.createElement('span');description.textContent=source.description||'Lihat informasi produk selengkapnya.';
-    const action=document.createElement('span');action.className='chat-product-action';action.textContent='Lihat produk / sumber ↗';
-    const origin=document.createElement('small');origin.textContent=url.hostname.replace(/^www\./,'');details.append(name,description,action,origin);card.append(details);log?.lastElementChild?.append(card);
+    const action=document.createElement('span');action.className='chat-product-action';action.textContent='Lihat produk';
+    details.append(name,description,action);card.append(details);log?.lastElementChild?.append(card);
    }}catch{}
   }
   history=[...messages,{role:'assistant',content:(data.reply+(data.sources.length?'\nProduk yang ditampilkan: '+data.sources.map((s:{name:string})=>s.name).join(', '):'')).slice(0,1600)}].slice(-10);

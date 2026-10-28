@@ -55,11 +55,12 @@ try{
   assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/membantu meredakan batuk dan melegakan tenggorokan/);
   assert.equal(await input.inputValue(),'','input stays empty after success');
   assert.equal(await page.locator('#mecosin-chat-typing').isVisible(),false);
-  assert.equal(await page.locator('.mecosin-chat-reply a').last().getAttribute('href'),'https://medicastore.com/produk/Herbal/10871/laserin-sirup-sachet-15-ml');
+  assert.equal(await page.locator('.mecosin-chat-reply a').last().getAttribute('href'),'/produk/laserin-sachet/');
   assert.equal(await page.locator('.chat-product-card img').count(),1);
   await page.locator('.chat-product-card img').evaluate(e=>e.decode());
   assert.match(await page.locator('.chat-product-card').innerText(),/Lihat produk/);
-  assert.equal(await page.locator('.chat-product-card small').innerText(),'medicastore.com');
+  assert.equal(await page.locator('.chat-product-card small').count(),0);
+  assert.doesNotMatch(await page.locator('.chat-product-card').innerText(),/medicastore|halodoc|hbhoz|sumber/i);
   await input.fill('Kalau yang itu?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
   assert.equal(calls.at(-1).messages.length,4,'system + multi-turn history');
