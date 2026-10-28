@@ -15,6 +15,9 @@ globalThis.fetch=async (url,options)=>{
   calls.push(JSON.parse(options.body));
   await new Promise(resolve=>setTimeout(resolve,500));
   if(fail)return new Response('provider outage',{status:503});
+  const req=JSON.parse(options.body);
+  if(req.messages.filter(m=>m.role==='user').at(-1).content.includes('dosis'))return Response.json({choices:[{message:{content:JSON.stringify({intent:'medical',reply:'Untuk aturan pakai, ikuti label kemasan dan konfirmasi ke apoteker.',products:[]})}}]});
+  if(!req.messages.some(m=>m.role==='tool'))return Response.json({choices:[{message:{tool_calls:[{id:'detail',type:'function',function:{name:'get_product',arguments:JSON.stringify({slug:'laserin-sachet'})}}]}}]});
   return Response.json({choices:[{message:{content:JSON.stringify({intent:'products',reply:'Ini pilihan sachet kami.',products:['laserin-sachet']})}}]});
  }
  return nativeFetch(url,options);
@@ -63,12 +66,12 @@ try{
   assert.doesNotMatch(await page.locator('.chat-product-card').innerText(),/medicastore|halodoc|hbhoz|sumber/i);
   await input.fill('Kalau yang itu?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
-  assert.equal(calls.at(-1).messages.length,4,'system + multi-turn history');
+  assert.equal(calls.at(-1).messages.filter(m=>['user','assistant'].includes(m.role)&&!m.tool_calls).length,3,'multi-turn conversation preserved alongside tools');
   const before=calls.length;
   await input.fill('Berapa dosis untuk anak saya?');await input.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.mecosin-chat-messages').getAttribute('aria-busy')==='false');
   assert.match(await page.locator('.mecosin-chat-reply').last().innerText(),/ikuti label kemasan/i);
-  assert.equal(calls.length,before);
+  assert.equal(calls.length,before+1);
   assert.equal(await page.evaluate(()=>Object.keys(localStorage).some(k=>/chat/i.test(k))),false);
   assert.ok(await page.locator('#mecosin-chat').evaluate(e=>{const r=e.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight;}));
   await page.keyboard.press('Escape');assert.equal(await page.locator('.mecosin-chat-launcher').evaluate(e=>e===document.activeElement),true);

@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import handler from '../api/chat.mjs';
+const server=createServer(handler);await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const origin=`http://127.0.0.1:${server.address().port}`;
+process.env.CHAT_ALLOWED_ORIGINS=origin;process.env.NINE_ROUTER_BASE_URL='https://agent.invalid/v1';process.env.NINE_ROUTER_API_KEY='fixture';
+const native=globalThis.fetch;const seen=[];
+const call=(name,args)=>({id:'call_'+seen.length,type:'function',function:{name,arguments:JSON.stringify(args)}});
+let responses=[{content:JSON.stringify({intent:'clarify',reply:'Ada alergi atau obat lain yang sedang kamu minum?',products:[]})}];
+globalThis.fetch=async(url,options)=>{if(!String(url).startsWith('https://agent.invalid'))return native(url,options);seen.push(JSON.parse(options.body));return Response.json({choices:[{message:responses.shift()}]});};
+const ask=async content=>{const r=await native(origin,{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({messages:[{role:'user',content}]})});return {status:r.status,body:await r.json(),tools:r.headers.get('x-chat-tool-calls')};};
+try{
+ let r=await ask('Gue 25 tahun, batuk kering dua hari, tidak demam.');
+ assert.equal(r.status,200);assert.equal(seen.length,1,'model, not scripted intake, handles supplied facts');
+ assert.equal(r.body.reply,'Ada alergi atau obat lain yang sedang kamu minum?');
+ assert.deepEqual(seen[0].tools.map(t=>t.function.name),['search_products','get_product']);
+ responses=[{tool_calls:[call('search_products',{query:'Laserin Sachet'})]}, {tool_calls:[call('get_product',{slug:'laserin-sachet'})]}, {content:JSON.stringify({intent:'ingredients',reply:'Ini rincian Laserin Sachet.',products:['laserin-sachet']})}];
+ r=await ask('Apa kandungan Laserin Sachet?');assert.equal(r.status,200);assert.equal(r.tools,'2');assert.match(r.body.sources[0].description,/Zingiberis officinale/);assert.equal(r.body.sources[0].url,'/produk/laserin-sachet/');
+ const toolResult=JSON.parse(seen.at(-1).messages.at(-1).content);assert.equal(toolResult.slug,'laserin-sachet');assert.ok(toolResult.composition);assert.doesNotMatch(JSON.stringify(toolResult),/medicastore|https:/);
+ responses=[{content:JSON.stringify({intent:'greeting',reply:'Halo, ada yang bisa kubantu?',products:[]})}];
+ r=await ask('halo');assert.equal(r.body.reply,'Halo, ada yang bisa kubantu?');assert.equal(r.tools,'0');
+ responses=[{tool_calls:[call('get_product',{slug:'invented'})]}];assert.equal((await ask('produk')).status,502);
+ responses=[{tool_calls:[call('fetch_url',{url:'https://example.com'})]}];assert.equal((await ask('produk')).status,502);
+ responses=[{tool_calls:[call('search_products',{query:'batuk',extra:true})]}];assert.equal((await ask('produk')).status,502);
+ responses=[{content:JSON.stringify({intent:'products',reply:'Pasti sembuh dalam 2 hari.',products:[]})},{content:JSON.stringify({intent:'medical',reply:'Hasil penggunaan tidak bisa dijamin. Konfirmasi ke apoteker untuk keputusan penggunaan.',products:[]})}];
+ r=await ask('pasti sembuh?');assert.equal(r.status,200);assert.doesNotMatch(r.body.reply,/Pasti sembuh/);
+ responses=[{content:JSON.stringify({intent:'products',reply:'Ini Laserin Sachet.',products:['laserin-sachet']})},{tool_calls:[call('get_product',{slug:'laserin-sachet'})]},{content:JSON.stringify({intent:'products',reply:'Ini Laserin Sachet.',products:['laserin-sachet']})}];
+ r=await ask('lihat Laserin Sachet');assert.equal(r.status,200);assert.equal(r.tools,'1','missing tool grounding is repaired before cards');
+ responses=Array.from({length:4},()=>({tool_calls:[call('search_products',{query:'batuk'})]}));
+ assert.equal((await ask('produk')).status,502,'tool loop bounded');
+ responses=[{content:'not JSON'}];assert.equal((await ask('halo')).body.code,'UPSTREAM_FORMAT');
+ let attempts=0;globalThis.fetch=async(url,options)=>{if(!String(url).startsWith('https://agent.invalid'))return native(url,options);if(++attempts===1)throw new DOMException('fixture','TimeoutError');return Response.json({choices:[{message:{content:JSON.stringify({intent:'greeting',reply:'Halo!',products:[]})}}]});};
+ r=await ask('halo');assert.equal(r.status,200);assert.equal(attempts,2);
+ console.log('PASS agent HTTP: model-led dialogue, search/detail loop, grounding repair, claim repair, invalid/unknown tools, bounded rounds, malformed output, timeout recovery (fixture provider)');
+}finally{globalThis.fetch=native;server.closeAllConnections();await new Promise(r=>server.close(r));}
