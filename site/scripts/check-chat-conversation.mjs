@@ -21,6 +21,6 @@ try{
   attempts++;if(attempts===1)throw new DOMException('fixture','TimeoutError');
   return Response.json({choices:[{message:{content:JSON.stringify({intent:'clarify',reply:'Mau pilihan botol atau sachet?',products:[]})}}]});
  };
- try{const recovered=await ask([user('kalau gw batuk pake apa ya')]);assert.equal(attempts,2);assert.match(recovered.reply,/^Lagi batuk, ya\./);}finally{globalThis.fetch=nativeFetch;}
+ try{const recovered=await ask([user('Saya ingin lihat pilihan produk')]);assert.equal(attempts,2);assert.match(recovered.reply,/botol atau sachet/);}finally{globalThis.fetch=nativeFetch;}
  console.log('PASS audit regressions: local thanks/identity, contextual dose/guarantee, sourced composition, product switch, timeout recovery, warm opener');
 }finally{server.closeAllConnections();await new Promise(r=>server.close(r));}

@@ -35,7 +35,7 @@ async function send(question:string){
  if(status)status.textContent='';
  log?.setAttribute('aria-busy','true');
  try{
-  const messages=[...history.slice(-10),{role:'user',content:question}];
+  const messages=[...history.slice(-22),{role:'user',content:question}];
   const response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages}),signal:AbortSignal.timeout(25000)});
   const data=await response.json();
   if(!response.ok)throw new Error(typeof data.error==='string'?data.error:'Chat belum tersedia. Coba lagi nanti.');
@@ -51,7 +51,7 @@ async function send(question:string){
     details.append(name,description,action);card.append(details);log?.lastElementChild?.append(card);
    }}catch{}
   }
-  history=[...messages,{role:'assistant',content:(data.reply+(data.sources.length?'\nProduk yang ditampilkan: '+data.sources.map((s:{name:string})=>s.name).join(', '):'')).slice(0,1600)}].slice(-10);
+  history=[...messages,{role:'assistant',content:(data.reply+(data.sources.length?'\nProduk yang ditampilkan: '+data.sources.map((s:{name:string})=>s.name).join(', '):'')).slice(0,1600)}].slice(-22);
   if(status)status.textContent='';
  }catch(error){
   const message=error instanceof Error&&error.name!=='TimeoutError'&&error.name!=='TypeError'?error.message:'Koneksi chat bermasalah. Coba kirim lagi, ya.';
