@@ -12,6 +12,7 @@ try{
  const history=[user('sachet aja'),{role:'assistant',content:'Ini Laserin Sachet.\nProduk yang ditampilkan: Laserin Sachet'}];
  const ingredients=await ask([...history,user('apa kandungannya?')]);assert.match(ingredients.sources[0].description,/Zingiberis officinale/);assert.equal(ingredients.sources[0].field,'composition');
  const guarantee=await ask([...history,user('pasti sembuh kan?')]);assert.match(guarantee.reply,/bukan jaminan/);assert.doesNotMatch(guarantee.reply,/sebutkan/);
+ const d3=await ask([user('MecoVit GO'),{role:'assistant',content:'MecoVit GO'},user('kalau MecoVit D3 berapa kandungannya?')]);assert.equal(d3.sources[0].slug,'mecovit-d3-1000-iu');
  const other=await ask([...history,user('apa kandungan Mecowell Normoten?')]);assert.equal(other.sources[0].slug,'mecowell-normoten');assert.match(other.sources[0].description,/belum tersedia/);
  process.env.NINE_ROUTER_BASE_URL='https://retry.invalid/v1';process.env.NINE_ROUTER_API_KEY='fixture';
  const nativeFetch=globalThis.fetch;let attempts=0;

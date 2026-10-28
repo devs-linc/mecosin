@@ -20,7 +20,7 @@ const buckets = new Map();
 const normalize=value=>value.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 function productIn(content){
  const text=` ${normalize(content)} `;
- return [...catalogue.values()].sort((a,b)=>b.name.length-a.name.length).find(p=>text.includes(` ${normalize(p.name)} `)||text.includes(` ${normalize(p.slug)} `));
+ return [...catalogue.values()].sort((a,b)=>b.name.length-a.name.length).find(p=>[p.name,p.slug,p.slug==='mecovit-d3-1000-iu'?'Mecovit D3':''].filter(Boolean).some(alias=>text.includes(` ${normalize(alias)} `)));
 }
 function contextProduct(messages){
  for(const message of [...messages].reverse()){
@@ -123,6 +123,7 @@ export default async function handler(req, res) {
     const priorReplies=messages.filter(m=>m.role==='assistant').map(m=>m.content).join(' ');
     if(/kalian.*jual|kan.*jual|tadi.*bilang/.test(text)){
       selected=selected.filter(p=>!priorReplies.includes(p.name));
+      if(!selected.length)result.reply='Ya, kami punya Laserin. Informasi produknya ada di kartu sebelumnya; kamu mau tahu bagian yang mana?';
       if(/(?:periksa|konsultasi|temui).*dokter/i.test(priorReplies))result.reply=result.reply.replace(/[^.!?]*(?:periksa|konsultasi|temui)[^.!?]*dokter[^.!?]*[.!?]?/gi,'').trim();
     }
     if(/batuk/.test(text)&&/(?:2|dua|3|tiga|[4-9])\s*minggu|sebulan|bulan/.test(text)&&!/(?:periksa|konsultasi|temui).*dokter/i.test(result.reply))result.reply+=' Karena batuknya sudah berlangsung lama, sebaiknya periksa ke dokter. Informasi produk ini tidak menggantikan pemeriksaan.';
