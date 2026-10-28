@@ -99,6 +99,7 @@ export default async function handler(req, res) {
       const message=JSON.parse(Buffer.concat(chunks).toString('utf8')).choices?.[0]?.message;
       if(!message)throw new Error('invalid output');
       if(message.tool_calls?.length){
+        stage='tool-budget';
         if(!Array.isArray(message.tool_calls)||round===3||toolCount+message.tool_calls.length>6||new Set(message.tool_calls.map(c=>c?.id)).size!==message.tool_calls.length)throw new Error('invalid output');
         stage='tool';
         const results=message.tool_calls.map(call=>({role:'tool',tool_call_id:call.id,content:JSON.stringify(runTool(call,retrieved))}));
@@ -108,6 +109,7 @@ export default async function handler(req, res) {
       }
       stage='output';
       const result=JSON.parse(message.content);
+      stage=!result||typeof result!=='object'?'output-type':Object.keys(result).some(k=>!['intent','reply','products'].includes(k))?'output-fields':typeof result.reply!=='string'||!result.reply.trim()||result.reply.length>700?'output-reply':!Array.isArray(result.products)?'output-products':'output-contract';
       if(!result||Object.keys(result).some(k=>!['intent','reply','products'].includes(k))||!['products','greeting','clarify','medical','emergency','unknown','buying','off_topic','ingredients'].includes(result.intent)||typeof result.reply!=='string'||!result.reply.trim()||result.reply.length>700||!Array.isArray(result.products)||result.products.length>3||new Set(result.products).size!==result.products.length||result.products.some(slug=>!catalogue.has(slug))||(!['products','ingredients'].includes(result.intent)&&result.products.length))throw new Error('invalid output');
       // Reject common overclaims, not words like 'dosis' in a legitimate caution.
       // This is a supplementary heuristic, not clinical validation of generated prose.
@@ -123,6 +125,6 @@ export default async function handler(req, res) {
       res.setHeader('X-Chat-Tool-Calls',String(toolCount));
       return send(200,{reply:result.reply,sources:result.products.map(slug=>sourceCard(catalogue.get(slug),result.intent==='ingredients'?'composition':'description'))});
     }
-    throw new Error('invalid output');
+    stage='round-budget';throw new Error('invalid output');
   }catch(error){res.setHeader('X-Chat-Tool-Calls',String(toolCount));res.setHeader('X-Chat-Failure-Stage',stage);return send(error.name==='TimeoutError'?504:502,{error:'Chat sedang sulit dihubungi. Coba lagi sebentar, ya.',code:error.name==='TimeoutError'?'UPSTREAM_TIMEOUT':error instanceof SyntaxError?'UPSTREAM_FORMAT':error.message==='invalid output'?'UPSTREAM_CONTRACT':'UPSTREAM_CONNECTION'});}
 }
