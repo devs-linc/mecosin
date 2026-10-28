@@ -114,8 +114,10 @@ export default async function handler(req, res) {
       // Reject common overclaims, not words like 'dosis' in a legitimate caution.
       // This is a supplementary heuristic, not clinical validation of generated prose.
       const unsafe=/https?:|www\.|<|>|(?:pasti|dijamin|100%)\s+(?:akan\s+)?sembuh|(?:pasti|dijamin)\s+(?:aman|cocok)|(?:minum|konsumsi|berikan)\s+\d|\d+\s*kali sehari|(?:saya|aku)\s+(?:adalah\s+)?(?:dokter|apoteker)\b/i.test(result.reply);
-      const facts=[...retrieved].map(slug=>{const p=catalogue.get(slug);return p.description+' '+(p.composition?.text||'');}).join(' ').toLowerCase().replace(/\s+/g,'');
-      const unsupportedAmount=[...result.reply.matchAll(/\d+(?:[.,]\d+)?\s*(?:mg|ml|mcg|iu)\b/gi)].some(([value])=>!facts.includes(value.toLowerCase().replace(/\s+/g,'')));
+      const quantity=/\b\d+(?:[.,]\d+)?\s*(?:mg|ml|mcg|iu)\b/gi;
+      const factText=[...retrieved].map(slug=>{const p=catalogue.get(slug);return p.description+' '+(p.composition?.text||'');}).join(' ');
+      const amounts=new Set([...factText.matchAll(quantity)].map(([value])=>value.toLowerCase().replace(/\s+/g,'')));
+      const unsupportedAmount=[...result.reply.matchAll(quantity)].some(([value])=>!amounts.has(value.toLowerCase().replace(/\s+/g,'')));
       const ungrounded=result.products.some(slug=>!retrieved.has(slug));
       if(unsafe||unsupportedAmount||ungrounded){
         stage=unsafe||unsupportedAmount?'claim':'grounding';
