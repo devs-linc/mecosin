@@ -31,9 +31,9 @@ try {
     assert.equal(response.status,200);
     const data = await response.json();
     assert.equal(data.reply,'Ini pilihan sachet kami.');
-    assert.equal(data.sources[0].description,'Laserin Sachet membantu meredakan batuk & melegakan tenggorokan.');
+    assert.equal(data.sources[0].description,'Sirup herbal dalam sachet 15 ml untuk membantu meredakan batuk dan melegakan tenggorokan.');
     assert.equal(data.sources[0].image,'/images/laserin-sachet.webp');
-    assert.equal(data.sources[0].url,'https://mecosin.id/product/Laserin-Sachet');
+    assert.equal(data.sources[0].url,'https://medicastore.com/produk/Herbal/10871/laserin-sirup-sachet-15-ml');
     assert.equal(captured.model,'cx/gpt-6.1-sol');
     assert.equal(captured.reasoning_effort,'medium');
     assert.doesNotMatch(data.reply,/Ini informasi katalog|bukan penilaian kecocokan/);
