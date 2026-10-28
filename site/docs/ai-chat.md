@@ -46,15 +46,20 @@ Medical/emergency requests use fixed refusals/escalation, without products.
 Keyword checks are supplementary, not proof of perfect intent classification.
 Matching source products is not a personal suitability assessment.
 
-`src/data/chat-knowledge.json` records all 20 product source pages, retrieval time
-and SHA-256 of locally retained Reader exports in `evidence/chat/sources/`.
-Only product descriptions enter the model context, not articles, prices,
-ratings, testimonials or site instructions. Serum universal-suitability/testing
-sentence, GO regulatory detail and D3 clinical-targeting claim are excluded.
-D3 remains name/link-only. Source claims still need qualified review before public
-release; retrieval does not establish clinical truth or current authorization.
-Snapshot is manual, not continuously synced. Refresh source exports and review
-changes before replacing the checked-in knowledge file.
+`src/data/chat-knowledge.json` includes 16 Owner-authorized secondary-source
+description enrichments, retrieval times, supporting quotes and prior official
+snapshot provenance. Four unresolved products retain the previous snapshot.
+Descriptions and available composition enter model context; ingredient replies
+render source-owned composition cards with field-specific URLs. Cards show the
+actual source domain, not an official-brand attribution for third-party text.
+D3 uses 1000 IU (25 mcg), never the source paragraph's conflicting 1000 mg.
+No researched dosing was promoted: directions remain withheld pending exact
+label verification. No prices, testimonials, regulatory promises, clinical-targeting
+or disease-cure claims are imported. Raw research stays outside published source.
+Warnings are retained as provenance data, not a verified clinical decision engine.
+Check `node scripts/check-chat-knowledge.mjs` for coverage, exclusions and field
+provenance. Self-review only; no independent reviewer. Snapshot is manual, not
+continuously synced. Retrieval does not establish clinical truth or authorization.
 
 Process-local limit: 20 requests/minute/client and 5000 active buckets. This is
 not a distributed spending guard. Configure native Vercel firewall/rate limits
