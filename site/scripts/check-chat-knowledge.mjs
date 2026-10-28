@@ -15,7 +15,7 @@ const server=createServer(handler);await new Promise(r=>server.listen(0,'127.0.0
 const origin=`http://127.0.0.1:${server.address().port}`;
 process.env.NINE_ROUTER_BASE_URL='https://fixture.invalid/v1';process.env.NINE_ROUTER_API_KEY='fixture';process.env.CHAT_ALLOWED_ORIGINS=origin;
 const native=globalThis.fetch;let slug='mecovit-go';
-globalThis.fetch=async(url,options)=>String(url).startsWith('https://fixture.invalid')?Response.json({choices:[{message:{content:JSON.stringify({intent:'ingredients',reply:'Ini komposisi produknya.',products:[slug]})}}]}):native(url,options);
+globalThis.fetch=async(url,options)=>{if(!String(url).startsWith('https://fixture.invalid'))return native(url,options);const req=JSON.parse(options.body);return Response.json({choices:[{message:req.messages.some(m=>m.role==='tool')?{content:JSON.stringify({intent:'ingredients',reply:'Ini komposisi produknya.',products:[slug]})}:{tool_calls:[{id:'detail',type:'function',function:{name:'get_product',arguments:JSON.stringify({slug})}}]}}]});};
 try{
  for(const [id,expected,host] of [['mecovit-go','Vit C, Vit B1, Vit B2, Vit B6, Vit B12, Vit D3, Calcium, Zinc, Vit E','www.hbhoz.id'],['mecovit-d3-1000-iu','Vitamin D3 (cholecalciferol) 1000 IU (25 mcg)','www.halodoc.com'],['beauty-360-body-serum','Komposisi lengkap belum tersedia. Periksa label kemasan produk ini.','mecosin.id']]){
   slug=id;const r=await native(`${origin}/api/chat`,{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:`Komposisi ${id}?`}]})});

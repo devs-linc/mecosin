@@ -36,7 +36,7 @@ async function send(question:string){
  log?.setAttribute('aria-busy','true');
  try{
   const messages=[...history.slice(-22),{role:'user',content:question}];
-  const response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages}),signal:AbortSignal.timeout(25000)});
+  const response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages}),signal:AbortSignal.timeout(40000)});
   const data=await response.json();
   if(!response.ok)throw new Error(typeof data.error==='string'?data.error:'Chat belum tersedia. Coba lagi nanti.');
   if(typeof data.reply!=='string'||!Array.isArray(data.sources))throw new Error('Jawaban belum tersedia. Coba lagi nanti.');
