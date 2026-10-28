@@ -33,7 +33,7 @@ try {
     assert.equal(data.reply,'Ini pilihan sachet kami.');
     assert.equal(data.sources[0].description,'Sirup herbal dalam sachet 15 ml untuk membantu meredakan batuk dan melegakan tenggorokan.');
     assert.equal(data.sources[0].image,'/images/laserin-sachet.webp');
-    assert.equal(data.sources[0].url,'https://medicastore.com/produk/Herbal/10871/laserin-sirup-sachet-15-ml');
+    assert.equal(data.sources[0].url,'/produk/laserin-sachet/');
     assert.equal(captured.model,'cx/gpt-6.1-sol');
     assert.equal(captured.reasoning_effort,'medium');
     assert.doesNotMatch(data.reply,/Ini informasi katalog|bukan penilaian kecocokan/);

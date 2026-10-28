@@ -14,7 +14,7 @@ const replies = {
   ingredients:'Aku belum punya data komposisi lengkap yang terverifikasi untuk semua produk. Cek halaman resmi dan label kemasan; aku tidak akan menebak kandungannya.'
 };
 const catalogue = new Map(knowledge.products.map(p => [p.slug, p]));
-const sourceCard=(p,field='description')=>({name:p.name,url:field==='composition'&&p.composition?p.composition.source:p.source,image:products.find(item=>item.slug===p.slug)?.image,description:field==='composition'?(p.composition?.text||'Komposisi lengkap belum tersedia. Periksa label kemasan produk ini.'):p.description,slug:p.slug,field});
+const sourceCard=(p,field='description')=>({name:p.name,url:`/produk/${p.slug}/`,image:products.find(item=>item.slug===p.slug)?.image,description:field==='composition'?(p.composition?.text||'Komposisi lengkap belum tersedia. Periksa label kemasan produk ini.'):p.description,slug:p.slug,field});
 // ponytail: process-local abuse limit; enforce distributed limits at Vercel/9router before public release.
 const buckets = new Map();
 const normalize=value=>value.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();

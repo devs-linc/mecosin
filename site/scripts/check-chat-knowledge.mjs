@@ -19,7 +19,7 @@ globalThis.fetch=async(url,options)=>String(url).startsWith('https://fixture.inv
 try{
  for(const [id,expected,host] of [['mecovit-go','Vit C, Vit B1, Vit B2, Vit B6, Vit B12, Vit D3, Calcium, Zinc, Vit E','www.hbhoz.id'],['mecovit-d3-1000-iu','Vitamin D3 (cholecalciferol) 1000 IU (25 mcg)','www.halodoc.com'],['beauty-360-body-serum','Komposisi lengkap belum tersedia. Periksa label kemasan produk ini.','mecosin.id']]){
   slug=id;const r=await native(`${origin}/api/chat`,{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:`Komposisi ${id}?`}]})});
-  assert.equal(r.status,200);const body=await r.json();assert.equal(body.sources[0].description,expected);assert.equal(new URL(body.sources[0].url).hostname,host);assert.equal(body.sources[0].field,'composition');
+  assert.equal(r.status,200);const body=await r.json();assert.equal(body.sources[0].description,expected);assert.equal(body.sources[0].url,`/produk/${id}/`);const record=knowledge.products.find(p=>p.slug===id);assert.equal(new URL(record.composition?.source||record.source).hostname,host);assert.equal(body.sources[0].field,'composition');
  }
  console.log('PASS external KB: 16 enriched, 4 retained, exact composition provenance, no unverified doses');
 }finally{globalThis.fetch=native;server.closeAllConnections();await new Promise(r=>server.close(r));}
