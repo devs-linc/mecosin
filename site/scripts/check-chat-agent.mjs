@@ -28,6 +28,8 @@ try{
  r=await ask('lihat Laserin Sachet');assert.equal(r.status,200);assert.equal(r.tools,'1','missing tool grounding is repaired before cards');
  responses=Array.from({length:4},()=>({tool_calls:[call('search_products',{query:'batuk'})]}));
  assert.equal((await ask('produk')).status,502,'tool loop bounded');
+ responses=[{tool_calls:[call('get_product',{slug:'laserin-sachet'})]},{content:JSON.stringify({intent:'products',reply:'Laserin Sachet tersedia dalam sachet 15 ml.',products:['laserin-sachet']})}];
+ r=await ask('Apa kemasannya?');assert.equal(r.status,200);assert.match(r.body.reply,/15 ml/);
  responses=[{content:'not JSON'}];assert.equal((await ask('halo')).body.code,'UPSTREAM_FORMAT');
  let attempts=0;globalThis.fetch=async(url,options)=>{if(!String(url).startsWith('https://agent.invalid'))return native(url,options);if(++attempts===1)throw new DOMException('fixture','TimeoutError');return Response.json({choices:[{message:{content:JSON.stringify({intent:'greeting',reply:'Halo!',products:[]})}}]});};
  r=await ask('halo');assert.equal(r.status,200);assert.equal(attempts,2);
