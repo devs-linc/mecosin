@@ -43,7 +43,7 @@ try {
     assert.equal((await identity.json()).reply,answer.reply);
     answer = {intent:'greeting',reply:'Aku asisten virtual Mecosin. Ada yang bisa kubantu seputar produk kami?',products:[]};
     const followup=await post({messages:[{role:'user',content:'halo'},{role:'assistant',content:'Halo. Ada yang bisa kubantu seputar produk kami?'},{role:'user',content:'kamu siapa'}]});
-    assert.equal((await followup.json()).reply,'Aku asisten virtual Mecosin.');
+    assert.equal((await followup.json()).reply,'Aku asisten virtual Mecosin. Aku bantu kamu kenalan dengan produk kami.');
     answer = {intent:'greeting',reply:'Sama-sama!',products:[]};
     assert.equal((await (await post({messages:[{role:'user',content:'makasih'}]})).json()).reply,'Sama-sama!');
     answer = {intent:'products', products:['laserin-sachet'], reply:'Pasti sembuh dalam 2 hari'};

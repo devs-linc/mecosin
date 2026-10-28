@@ -265,7 +265,12 @@
         "text": "Kocok dahulu sebelum diminum. Hentikan penggunaan jika terjadi reaksi alergi.",
         "source": "https://medicastore.com/produk/Herbal/10871/laserin-sirup-sachet-15-ml"
       },
-      "directionsStatus": "withheld_unverified_label"
+      "directionsStatus": "withheld_unverified_label",
+      "composition": {
+        "text": "Tiap sendok makan (15 mL) mengandung : Euphorbia hirta Herba 0,01 g; Zingiberis officinale Rhizoma 1,84 g; Cinnamomum burmani Cortex 0,26 g; Amomi cardamomi Fructus 0,02 g; Eugenia caryophyllata Flos 0,03 g; Piper betle Folium 0,45 g; Abri precatorius Folium 0,05 g; Mentha arvensis Folium 0,002 g; Hibiscus tileacius Folium 0,005 g; Oleum Mentha piperita 0,02 mL; Succus liquiritae 0,016 g",
+        "source": "https://medicastore.com/produk/Herbal/10871/laserin-sirup-sachet-15-ml",
+        "qualification": "Komposisi yang tercantum pada sumber sekunder; bukan aturan dosis. Cocokkan dengan kemasan terkini."
+      }
     },
     {
       "slug": "laserin-untuk-masuk-angin-luma",
