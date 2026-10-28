@@ -75,7 +75,7 @@ export default async function handler(req, res) {
     if(base.protocol!=='https:' || base.username || base.password || base.search || base.hash || !process.env.NINE_ROUTER_API_KEY) throw new Error('config');
   } catch { return send(503,{error:unavailable}); }
   const turns=[{role:'system',content:system},...messages];
-  const retrieved=new Set();let toolCount=0;let repaired=false;
+  const retrieved=new Set();let toolCount=0;let repaired=false;let stage='provider';
   const deadline=Date.now()+32000;
   try {
     // ponytail: four model rounds, six read-only tool calls; no autonomous/background actions.
@@ -100,11 +100,13 @@ export default async function handler(req, res) {
       if(!message)throw new Error('invalid output');
       if(message.tool_calls?.length){
         if(!Array.isArray(message.tool_calls)||round===3||toolCount+message.tool_calls.length>6||new Set(message.tool_calls.map(c=>c?.id)).size!==message.tool_calls.length)throw new Error('invalid output');
+        stage='tool';
         const results=message.tool_calls.map(call=>({role:'tool',tool_call_id:call.id,content:JSON.stringify(runTool(call,retrieved))}));
         toolCount+=results.length;
         turns.push({role:'assistant',content:null,tool_calls:message.tool_calls},...results);
         continue;
       }
+      stage='output';
       const result=JSON.parse(message.content);
       if(!result||Object.keys(result).some(k=>!['intent','reply','products'].includes(k))||!['products','greeting','clarify','medical','emergency','unknown','buying','off_topic','ingredients'].includes(result.intent)||typeof result.reply!=='string'||!result.reply.trim()||result.reply.length>700||!Array.isArray(result.products)||result.products.length>3||new Set(result.products).size!==result.products.length||result.products.some(slug=>!catalogue.has(slug))||(!['products','ingredients'].includes(result.intent)&&result.products.length))throw new Error('invalid output');
       // Reject common overclaims, not words like 'dosis' in a legitimate caution.
@@ -112,6 +114,7 @@ export default async function handler(req, res) {
       const unsafe=/https?:|www\.|<|>|(?:pasti|dijamin|100%)\s+(?:akan\s+)?sembuh|(?:pasti|dijamin)\s+(?:aman|cocok)|(?:minum|konsumsi|berikan)\s+\d|\d+\s*(?:kali sehari|ml\b|mg\b)|(?:saya|aku)\s+(?:adalah\s+)?(?:dokter|apoteker)\b/i.test(result.reply);
       const ungrounded=result.products.some(slug=>!retrieved.has(slug));
       if(unsafe||ungrounded){
+        stage=unsafe?'claim':'grounding';
         if(repaired||round===3)throw new Error('invalid output');
         repaired=true;
         turns.push({role:'system',content:unsafe?'Jawaban ditolak validator. Tulis ulang JSON tanpa URL/markup, klaim kesembuhan/kecocokan/keamanan, dosis atau identitas profesional. Jawab kebutuhan secara natural; jangan menyebut validator.':'Sebelum kartu, panggil get_product untuk setiap slug yang akan ditampilkan, lalu jawab JSON. Jangan menebak fakta.'});
@@ -121,5 +124,5 @@ export default async function handler(req, res) {
       return send(200,{reply:result.reply,sources:result.products.map(slug=>sourceCard(catalogue.get(slug),result.intent==='ingredients'?'composition':'description'))});
     }
     throw new Error('invalid output');
-  }catch(error){return send(error.name==='TimeoutError'?504:502,{error:'Chat sedang sulit dihubungi. Coba lagi sebentar, ya.',code:error.name==='TimeoutError'?'UPSTREAM_TIMEOUT':error instanceof SyntaxError?'UPSTREAM_FORMAT':error.message==='invalid output'?'UPSTREAM_CONTRACT':'UPSTREAM_CONNECTION'});}
+  }catch(error){res.setHeader('X-Chat-Tool-Calls',String(toolCount));res.setHeader('X-Chat-Failure-Stage',stage);return send(error.name==='TimeoutError'?504:502,{error:'Chat sedang sulit dihubungi. Coba lagi sebentar, ya.',code:error.name==='TimeoutError'?'UPSTREAM_TIMEOUT':error instanceof SyntaxError?'UPSTREAM_FORMAT':error.message==='invalid output'?'UPSTREAM_CONTRACT':'UPSTREAM_CONNECTION'});}
 }
